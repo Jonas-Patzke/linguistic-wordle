@@ -1,3 +1,7 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
+
+
 def load_text(path):     #load text from a file
   with open(path, "r", encoding="utf-8") as f:
     return f.read()
@@ -12,11 +16,12 @@ def save_text(path, content):      #save text in a file
     f.write(content)
 
 def run_extraction():   #the whole extraction Prozess
-  raw = load_text("../data/MOBY-DICK; or, THE WHALE") 
+  raw = load_text("../data/MOBY-DICK; or, THE WHALE.txt")
   chapters = extract_chapters(raw, 3)
   save_text("../data/first_three_chapters.txt", chapters)
   
 if __name__ == "__main__":  #starts automaticly running
   run_extraction()
 
+print("done")
 #------------------------------------------------------------------------------------------------------------------
