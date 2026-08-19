@@ -12,7 +12,7 @@ def save_text(path, content):      #save text in a file
     f.write(content)
 
 def run_extraction():   #the whole extraction Prozess
-  raw = load_text(" ") #hier kommt die Wal Datei
+  raw = load_text("../data/MOBY-DICK; or, THE WHALE") 
   chapters = extract_chapters(raw, 3)
   save_text(" ", chapters) #hier kommt name wie gespeichert
 
