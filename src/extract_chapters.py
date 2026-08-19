@@ -14,7 +14,7 @@ def save_text(path, content):      #save text in a file
 def run_extraction():   #the whole extraction Prozess
   raw = load_text("../data/MOBY-DICK; or, THE WHALE") 
   chapters = extract_chapters(raw, 3)
-  save_text(" ", chapters) #hier kommt name wie gespeichert
-
-#if __name__ == "__main__":  #starts automaticly running
-  #run_extraction()
+  save_text("../data/first_three_chapters.txt", chapters)
+  
+if __name__ == "__main__":  #starts automaticly running
+  run_extraction()
