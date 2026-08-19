@@ -3,7 +3,7 @@ def load_text(path):     #load text from a file
     return f.read()
 
 def extract_chapters(text, n=3):     #extract the first n chapters
-  parts = text.split("CHAPTER")[1:]
+  parts = text.split("CHAPTER ")[1:]
   selected = parts[:n]
   return "\n".join("CHAPTER" + p for p in selected)
 
