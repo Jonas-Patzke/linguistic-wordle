@@ -1,3 +1,4 @@
+# 1. Extract first three chapters
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 
@@ -23,5 +24,5 @@ def run_extraction():   #the whole extraction Prozess
 if __name__ == "__main__":  #starts automaticly running
   run_extraction()
 
-print("done")
+
 #------------------------------------------------------------------------------------------------------------------
