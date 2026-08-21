@@ -25,6 +25,16 @@ def run_extraction():   #the whole extraction Prozess
 # run_extraction()
 
 
+#1.5 put everything in lowercase
+
+def clean_lowercase(text_file): #convert file in lowercase
+  with open(text_file, "r", encoding="utf-8") as f:
+    content = f.read()
+  content = content.lower()
+  return content
+
+
+
 #------------------------------------------------------------------------------------------------------------------
 #2. tokenize + lemmmatize
 #since we return a list of strings in lemmatize, we have to
