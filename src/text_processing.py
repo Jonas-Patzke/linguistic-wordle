@@ -51,7 +51,7 @@ def lemmatize(text_file): # lemmatize and return a list of lemma
 lemmatize("../data/first_three_chapters.txt")
 
 
-def filter_tokens(text_file):
+def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary words
   doc = tokenize(text_file)
   filtered = [token for token in doc if token.is_alpha and not token.is_stop]
   print(filtered[:50]) #nur Kontrolle muss später löschen
