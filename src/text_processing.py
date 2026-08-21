@@ -1,7 +1,7 @@
-# 1. Extract first three chapters
+import spacy
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
-
+# 1. Extract first three chapters
 
 def load_text(path):     #load text from a file
   with open(path, "r", encoding="utf-8") as f:
@@ -21,8 +21,31 @@ def run_extraction():   #the whole extraction Prozess
   chapters = extract_chapters(raw, 3)
   save_text("../data/first_three_chapters.txt", chapters)
   
-if __name__ == "__main__":  #starts automaticly running
-  run_extraction()
+#if __name__ == "__main__":  #starts automaticly running
+# run_extraction()
 
 
 #------------------------------------------------------------------------------------------------------------------
+#2. tokenize + lemmmatize
+#since we return a list of strings in lemmatize, we have to
+#use our text cleaning functions before we use lemmatize()
+#we will use spacy to filter for stop words and punctuation, but its only possible with token objects
+#token.is_alpha = true, if our token is made out of letters
+#token.is_stop = true, if our tiken is a stop word
+# NOTE: we have edge cases in our chapter tokens(e.g. chapteri), since the book uses roman numbers
+
+def tokenize(text_file):  #tokenize our chapters and return token objects
+  with open(text_file, "r", encoding="utf-8") as f:
+    content = f.read()
+  nlp = spacy.load("en_core_web_sm")
+  doc = nlp(content)
+  return doc
+
+
+def lemmatize(text_file): # lemmatize and return a list of lemma
+  lemma = [token.lemma_ for token in tokenize(text_file)]
+  print([token.lemma_ for token in tokenize(text_file)]) # print() zur Visualisierung, muss später noch entfernt werden
+  return lemma
+
+
+lemmatize("../data/first_three_chapters.txt")
