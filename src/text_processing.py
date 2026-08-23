@@ -1,4 +1,5 @@
 import spacy
+import re
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 # 1. Extract first three chapters
@@ -66,4 +67,16 @@ def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary wor
   doc = tokenize(text_file)
   filtered = [token for token in doc if token.is_alpha and not token.is_stop]
   print(filtered[:50]) #nur Kontrolle muss später löschen
-return filtered 
+  return filtered 
+
+def chapter_edge_case(words_lemma: list):
+  pos = 0
+  for word in words_lemma:
+    if re.match("chapter(i)*", word) != None:
+      words_lemma.pop(pos)
+      pos += 1
+  words_lemma.append("chapter")
+  return words_lemma
+
+ffh = ["chapterii", "utw", "chapteriiii"]
+print(chapter_edge_case(ffh))
