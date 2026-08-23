@@ -44,7 +44,6 @@ def clean_lowercase(text_file): #convert file in lowercase
 #we will use spacy to filter for stop words and punctuation, but its only possible with token objects
 #token.is_alpha = true, if our token is made out of letters
 #token.is_stop = true, if our tiken is a stop word
-# NOTE: we have edge cases in our chapter tokens(e.g. chapteri), since the book uses roman numbers
 
 def tokenize(text_file):  #tokenize our chapters and return token objects
   with open(text_file, "r", encoding="utf-8") as f:
@@ -54,13 +53,10 @@ def tokenize(text_file):  #tokenize our chapters and return token objects
   return doc
 
 
-def lemmatize(text_file): # lemmatize and return a list of lemma
-  lemma = [token.lemma_ for token in tokenize(text_file)]
-  print([token.lemma_ for token in tokenize(text_file)]) # print() zur Visualisierung, muss später noch entfernt werden
+def lemmatize(tokenized_chapters): # lemmatize and return a list of lemma
+  lemma = [token.lemma_ for token in tokenized_chapters]
   return lemma
 
-
-lemmatize("../data/first_three_chapters.txt")
 
 
 def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary words and punctuation
@@ -68,6 +64,11 @@ def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary wor
   filtered = [token for token in doc if token.is_alpha and not token.is_stop]
   print(filtered[:50]) #nur Kontrolle muss später löschen
   return filtered 
+
+
+#------------------------------------------------------------------------------------------------------------------------------------------------
+#edge cases
+#we have edge cases in our chapter tokens(e.g. chapteri), since the book uses roman numbers
 
 def chapter_edge_case(words_lemma: list):
   pos = 0
@@ -78,5 +79,4 @@ def chapter_edge_case(words_lemma: list):
   words_lemma.append("chapter")
   return words_lemma
 
-ffh = ["chapterii", "utw", "chapteriiii"]
-print(chapter_edge_case(ffh))
+
