@@ -78,5 +78,4 @@ def chapter_edge_case(words_lemma: list):
   words_lemma.append("chapter")
   return words_lemma
 
-ffh = ["chapterii", "utw", "chapteriiii"]
-print(chapter_edge_case(ffh))
+
