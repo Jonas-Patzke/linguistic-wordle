@@ -56,11 +56,7 @@ def tokenize(text_file):  #tokenize our chapters and return token objects
 
 def lemmatize(text_file): # lemmatize and return a list of lemma
   lemma = [token.lemma_ for token in tokenize(text_file)]
-  print([token.lemma_ for token in tokenize(text_file)]) # print() zur Visualisierung, muss später noch entfernt werden
   return lemma
-
-
-lemmatize("../data/first_three_chapters.txt")
 
 
 def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary words and punctuation
