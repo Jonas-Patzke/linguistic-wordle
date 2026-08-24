@@ -65,12 +65,17 @@ def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary wor
   print(filtered[:50]) #nur Kontrolle muss später löschen
   return filtered 
 
+def remove_duplicates(words_lemma:list): #removes token duplicate - input is a list of lemma, outpus is a set of lemma
+  lemma = set(words_lemma)
+  return lemma
+
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 #edge cases
 #we have edge cases in our chapter tokens(e.g. chapteri), since the book uses roman numbers
+#NOTE: edge cases have to solved, before removing token duplicates, since our input in edge case functions is a list
 
-def chapter_edge_case(words_lemma: list):
+def chapter_edge_case(words_lemma: list): #removes all chapter edge cases and adds 1 "chapter" to the list
   pos = 0
   for word in words_lemma:
     if re.match("chapter(i)*", word) != None:
@@ -80,3 +85,7 @@ def chapter_edge_case(words_lemma: list):
   return words_lemma
 
 
+
+
+
+  
