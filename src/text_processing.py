@@ -21,7 +21,8 @@ def run_extraction():   #the whole extraction Prozess
   raw = load_text("../data/MOBY-DICK; or, THE WHALE.txt")
   chapters = extract_chapters(raw, 3)
   save_text("../data/first_three_chapters.txt", chapters)
-  
+  return "../data/first_three_chapters.txt"
+
 #if __name__ == "__main__":  #starts automaticly running
 # run_extraction()
 
@@ -45,11 +46,9 @@ def clean_lowercase(text_file): #convert file in lowercase
 #token.is_alpha = true, if our token is made out of letters
 #token.is_stop = true, if our tiken is a stop word
 
-def tokenize(text_file):  #tokenize our chapters and return token objects
-  with open(text_file, "r", encoding="utf-8") as f:
-    content = f.read()
+def tokenize(text):  #tokenize our chapters and return token objects, input text is coming from clean_lowercase function
   nlp = spacy.load("en_core_web_sm")
-  doc = nlp(content)
+  doc = nlp(text)
   return doc
 
 
@@ -59,10 +58,8 @@ def lemmatize(tokenized_chapters): # lemmatize and return a list of lemma
 
 
 
-def filter_tokens(text_file): #filters the tokens, so we haven't unnecessary words and punctuation
-  doc = tokenize(text_file)
-  filtered = [token for token in doc if token.is_alpha and not token.is_stop]
-  print(filtered[:50]) #nur Kontrolle muss später löschen
+def filter_tokens(tokens): #filters the tokens, so we haven't unnecessary words and punctuation
+  filtered = [token for token in tokens if token.is_alpha and not token.is_stop]
   return filtered 
 
 def remove_duplicates(words_lemma:list): #removes token duplicate - input is a list of lemma, outpus is a set of lemma
@@ -84,6 +81,17 @@ def chapter_edge_case(words_lemma: list): #removes all chapter edge cases and ad
   words_lemma.append("chapter")
   return words_lemma
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Wrap it all up in a function
+
+def process_text():
+    extracted_chapters = run_extraction() #extract chapters
+    token = tokenize(clean_lowercase(extracted_chapters)) #1. put everything in lower case, 2. tokenize
+    filtered_token = filter_tokens(token) #filter to remove stopwords and every token, that doesnt 
+    lemma = lemmatize(filtered_token) #lemmatize
+    lemma_edge_case = chapter_edge_case(lemma)
+    all_processed = remove_duplicates(lemma_edge_case)
+    return all_processed
 
 
 
