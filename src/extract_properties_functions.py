@@ -1,5 +1,6 @@
 import nltk
 from nltk.corpus import cmudict
+import re
 nltk.download('cmudict')
 cmu = cmudict.dict()
 
@@ -11,6 +12,15 @@ def pos_tagger(spacy_token):#map part-of-speech to each token
   for token in spacy_token:
     pos_tags.update({token.text: token.pos_})
   return pos_tags
+
+def extract_frequenzy(text_file, word_set):
+  count_dict = {}
+  with open(text_file, "r", encoding="utf-8") as file:
+    text = file.read
+  for word in word_set:
+    regex = "\b" + word + "\b"
+    count_dict.update({word: len(re.findall(regex, text))})
+
 
 def count_syllables_cmu(word): #counts syllables
   word = word.lower()
@@ -30,4 +40,4 @@ def extract_syllables(tokens): #application for all tokens
 
 
 def extract_properties_over_token(spacy_token):
-  print(pos_tagger(spacy_token)) #print function is just for visualization
+  print(pos_tagger(spacy_token)) #print function is just for visualisation
