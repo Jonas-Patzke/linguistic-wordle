@@ -28,6 +28,11 @@ def extract_syllables(tokens): #application for all tokens
       result.append((token.text, s))
   return result
 
+def extract_constituents(tokens): #extract constituents
+  result = []
+  for token in tokens:
+    result.append((token.text, token.dep_))
+  return result
 
 def extract_properties_over_token(spacy_token):
   print(pos_tagger(spacy_token)) #print function is just for visualization
