@@ -27,3 +27,7 @@ def extract_syllables(tokens): #application for all tokens
     if s is not None:
       result.append((token.text, s))
   return result
+
+
+def extract_properties_over_token(spacy_token):
+  print(pos_tagger(spacy_token)) #print function is just for visualization

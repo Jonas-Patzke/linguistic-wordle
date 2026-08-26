@@ -89,8 +89,7 @@ def process_text():
     extracted_chapters = run_extraction() #extract chapters
     token = tokenize(clean_lowercase(extracted_chapters)) #1. put everything in lower case, 2. tokenize
     filtered_token = filter_tokens(token) #filter to remove stopwords and every token, that doesnt 
-    print(filtered_token)
-    epot(filtered_token)
+    epot(filtered_token) #extract part-of-speech, since our token_objects are stored local and we need token objects to extract
     lemma = lemmatize(filtered_token) #lemmatize
     lemma_edge_case = chapter_edge_case(lemma)
     all_processed = remove_duplicates(lemma_edge_case)
