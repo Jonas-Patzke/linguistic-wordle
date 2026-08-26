@@ -3,6 +3,8 @@ from nltk.corpus import cmudict
 import re
 nltk.download('cmudict')
 cmu = cmudict.dict()
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 
 def number_of_letters(lemma): #extract the number of letters
   return len(lemma)
@@ -16,10 +18,11 @@ def pos_tagger(spacy_token):#map part-of-speech to each token
 def extract_frequenzy(text_file, word_set):
   count_dict = {}
   with open(text_file, "r", encoding="utf-8") as file:
-    text = file.read
+    text = file.read()
   for word in word_set:
-    regex = "\b" + word + "\b"
+    regex = r"\b" + word + r"\b"
     count_dict.update({word: len(re.findall(regex, text))})
+  return count_dict
 
 
 def count_syllables_cmu(word): #counts syllables
@@ -46,3 +49,4 @@ def extract_constituents(tokens): #extract constituents
 
 def extract_properties_over_token(spacy_token):
   print(pos_tagger(spacy_token)) #print function is just for visualisation
+
