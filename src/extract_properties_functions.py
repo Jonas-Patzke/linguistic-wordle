@@ -6,8 +6,11 @@ cmu = cmudict.dict()
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 
-def number_of_letters(lemma): #extract the number of letters
-  return len(lemma)
+def number_of_letters(lemma: list): #extract the number of letters
+  len_dict = {}
+  for lemmas in lemma:
+    len_dict.update({lemmas: len})
+  return len_dict
 
 def pos_tagger(spacy_token):#map part-of-speech to each token
   pos_tags = {}
@@ -47,6 +50,5 @@ def extract_constituents(tokens): #extract constituents
     result.append((token.text, token.dep_))
   return result
 
-def extract_properties_over_token(spacy_token):
-  print(pos_tagger(spacy_token)) #print function is just for visualisation
+
 

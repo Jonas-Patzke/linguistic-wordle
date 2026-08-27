@@ -1,6 +1,5 @@
 import spacy
 import re
-from extract_properties_functions import extract_properties_over_token as epot
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 # 1. Extract first three chapters
@@ -92,15 +91,17 @@ def chapter_edge_case(words_lemma: list): #removes all chapter edge cases and ad
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Wrap it all up in a function
 
-def process_text():
+def create_token():
     extracted_chapters = run_extraction() #extract chapters
     token = tokenize(clean_lowercase(extracted_chapters)) #1. put everything in lower case, 2. tokenize
     filtered_token = filter_tokens(token) #filter to remove stopwords and every token, that doesnt 
-    epot(filtered_token) #extract part-of-speech, since our token_objects are stored local and we need token objects to extract
-    lemma = lemmatize(filtered_token) #lemmatize
-    lemma_edge_case = chapter_edge_case(lemma)
-    all_processed = remove_duplicates(lemma_edge_case)
-    return all_processed
+    return filtered_token
+
+def create_lemma(token):
+    lemma = lemmatize(token) #lemmatize
+    lemma_edge_case = chapter_edge_case(lemma) #deleting "chapter" + n * "i" and add one "chapter"
+    lemma_without_duplicates = remove_duplicates(lemma_edge_case) #remove duplicate words
+    return lemma_without_duplicates
 
 
 
