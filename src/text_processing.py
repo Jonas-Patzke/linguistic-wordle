@@ -67,6 +67,13 @@ def remove_duplicates(words_lemma:list): #removes token duplicate - input is a l
   lemma = set(words_lemma)
   return lemma
 
+def remove_proper_names(pos_dict: dict): #input is the returned dict from pos_tagger function
+  pos_without_proper_names = []
+  for word in pos_dict:
+    if pos_dict.get(word) != "PROPN": 
+      pos_without_proper_names.append(word)
+  return pos_without_proper_names #returns a list of words without proper names
+
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 #edge cases
