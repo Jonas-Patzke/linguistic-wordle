@@ -1,6 +1,7 @@
 import spacy
 import re
 import os
+from nltk.corpus import cmudict
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 # 1. Extract first three chapters
 
@@ -88,6 +89,13 @@ def chapter_edge_case(words_lemma: list): #removes all chapter edge cases and ad
   words_lemma.append("chapter")
   return words_lemma
 
+def only_words_with_extractable_syllables(words):
+  result = []
+  for word in words:
+    if word in cmudict:
+      result.append(word)
+  return result
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Wrap it all up in a function
 
@@ -98,10 +106,11 @@ def create_token():
     return filtered_token
 
 def create_lemma(token):
-    lemma = lemmatize(token) #lemmatize
+    lemma = lemmatize(token) #lemmatize, the token are also transformed back to strings
     lemma_edge_case = chapter_edge_case(lemma) #deleting "chapter" + n * "i" and add one "chapter"
     lemma_without_duplicates = remove_duplicates(lemma_edge_case) #remove duplicate words
-    return lemma_without_duplicates
+    final_lemma = only_words_with_extractable_syllables(lemma_without_duplicates)
+    return final_lemma
 
 
 
