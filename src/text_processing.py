@@ -91,8 +91,9 @@ def chapter_edge_case(words_lemma: list): #removes all chapter edge cases and ad
 
 def only_words_with_extractable_syllables(words):
   result = []
+  cmu = cmudict.dict()
   for word in words:
-    if word in cmudict:
+    if word in cmu:
       result.append(word)
   return result
 

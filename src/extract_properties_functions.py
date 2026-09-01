@@ -4,6 +4,7 @@ import re
 nltk.download('cmudict')
 cmu = cmudict.dict()
 import os
+import spacy
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 
 def number_of_letters(lemma: list): #extract the number of letters
