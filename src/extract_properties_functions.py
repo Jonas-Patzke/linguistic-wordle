@@ -10,7 +10,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directo
 def number_of_letters(lemma: list): #extract the number of letters
   len_dict = {}
   for lemmas in lemma:
-    len_dict.update({lemmas: len})
+    len_dict.update({lemmas: len(lemmas)})
   return len_dict
 
 def pos_tagger(spacy_token):#map part-of-speech to each token
