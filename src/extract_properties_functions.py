@@ -2,7 +2,7 @@ import nltk
 from nltk.corpus import cmudict
 import re
 nltk.download('cmudict')
-cmu = cmudict.dict()
+cmu = cmudict.dict() #cmudict to python dict
 import os
 import spacy
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
