@@ -3,18 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>linguistic Wordle</title>
+    <title>Linguistic Wordle</title>
 
     <style>
-        body {
+        * {
             margin: 0;
-            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            background: linear-gradient(135deg, #f5f7fa, #dfe9f3);
+            background-color: white;
             font-family: Arial, sans-serif;
         }
 
@@ -23,62 +26,77 @@
         }
 
         h1 {
-            font-size: 5rem;
-            margin-bottom: 20px;
-            color: #222;
+            font-size: 6rem;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 25px;
         }
 
         p {
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            color: #555;
+            font-size: 1.8rem;
+            color: black;
+            margin-bottom: 40px;
         }
 
-        .buttons {
+        .button-container {
             display: flex;
             justify-content: center;
             gap: 20px;
         }
 
-        input[type="submit"] {
-            padding: 15px 35px;
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
             font-size: 1.2rem;
             font-weight: bold;
-
-            border: none;
-            border-radius: 12px;
-
-            background: #4f46e5;
+            text-decoration: none;
             color: white;
-
-            cursor: pointer;
-
-            transition: all 0.25s ease;
+            border-radius: 10px;
+            transition: all 0.2s ease;
         }
 
-        input[type="submit"]:hover {
+        .button:hover {
             transform: translateY(-3px);
-            background: #4338ca;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .beginner {
+            background-color: #6aaa64;
+        }
+
+        .beginner:hover {
+            background-color: #5b9a54;
+        }
+
+        .expert {
+            background-color: #787c7e;
+        }
+
+        .expert:hover {
+            background-color: #666a6c;
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
         <h1>LINGUISTIC WORDLE</h1>
 
         <p>Choose your game mode:</p>
 
-        <div class="buttons">
-            <input type="submit"
-                   name="game_mode_with_lemma"
-                   value="Beginner">
+        <div class="button-container">
 
-            <input type="submit"
-                   name="game_mode_without_lemma"
-                   value="Expert">
+            <a href="beginner_mode.html">
+                Beginner
+            </a>
+
+            <a href="expert_mode.html">
+                Expert
+            </a>
+
         </div>
     </div>
+
 </body>
 </html>
