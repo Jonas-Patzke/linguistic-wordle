@@ -6,97 +6,40 @@
     <title>Linguistic Wordle</title>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            text-align: center;
-        }
-
         h1 {
-            font-size: 6rem;
-            font-weight: bold;
-            color: black;
-            margin-bottom: 25px;
+            font-family: Arial, sans-serif;
+            font-size: 48px;
+            position: absolute;
+            top: 30%;
+            left: 32.5%;
+            }
+         h2 {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            position: absolute;
+            top: 40%;
+            left: 37.5%;
+            }
+        button {
+            font-family: Arial, sans-serif;
+            font-size: 48px;
+            posiTion: absolute;
+            top: 50%;
+            left: 45%
         }
-
-        p {
-            font-size: 1.8rem;
-            color: black;
-            margin-bottom: 40px;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-            border-radius: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .beginner {
-            background-color: #6aaa64;
-        }
-
-        .beginner:hover {
-            background-color: #5b9a54;
-        }
-
-        .expert {
-            background-color: #787c7e;
-        }
-
-        .expert:hover {
-            background-color: #666a6c;
-        }
+        
     </style>
 </head>
 
 <body>
+    <h1>LINGUISTIC WORDLE</h1>
+    <h2>by Veronika Rapp, Lina Bang and Jonas Patzke</h2>
+    <button onclick="window.location.href='game.html'">PLAY</button>
 
-    <div class="container">
-        <h1>LINGUISTIC WORDLE</h1>
+    <script>
 
-        <p>Choose your game mode:</p>
-
-        <div class="button-container">
-
-            <a href="beginner_mode.html">
-                Beginner
-            </a>
-
-            <a href="expert_mode.html">
-                Expert
-            </a>
-
-        </div>
-    </div>
+    </script>
+   
 
 </body>
 </html>
