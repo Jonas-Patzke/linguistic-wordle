@@ -1,5 +1,11 @@
 from nltk.corpus import cmudict
+import random
 cmu = cmudict.dict() #cmudict to python dict
+
+def pick_random_word(dict_with_words):
+    random_number = random.randint(0, len(dict_with_words) -1)
+    return list(dict_with_words.keys())[random_number]
+
 def word_is_valid(guess):
     if guess.lower() in cmu:
         return True
@@ -24,4 +30,5 @@ def letter_status(word,guess): #input are the worde we have to gues and our gues
         letter_pos += 1
     return color_list
 
-print(letter_status("haus","eeee"))
+
+print(pick_random_word({1:1,2:2,3:3}))
