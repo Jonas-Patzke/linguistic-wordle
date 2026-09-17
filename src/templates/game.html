@@ -107,17 +107,18 @@
     </div>
     <div id="board"></div>
     <script>
-        const versuche = 6;
-        const wortLaenge = 6;
+        const tries = 6;
+        const word_to_guess = "{{solution}}";
+        const word_length = {{length_of_word}};  
 
         const board = document.getElementById("board");
 
-        for (let r = 0; r < versuche; r++) {
+        for (let r = 0; r < tries; r++) {
 
             const row = document.createElement("div");
             row.classList.add("row");
 
-            for (let c = 0; c < wortLaenge; c++) {
+            for (let c = 0; c < word_length; c++) {
 
                 const tile = document.createElement("div");
 
@@ -130,34 +131,36 @@
             board.appendChild(row);
         }
         
-        let aktuelleSpalte = 0;
-        let aktuelleZeile = 0;
-        
+        let current_column = 0;
+        let current_line = 0;
+        let current_word = "";
+
         document.addEventListener("keydown", function(event) {
         
         if (/^[a-zA-Z]$/.test(event.key)) {
         
-        if (aktuelleSpalte < wortLaenge) {
+            if (current_column < word_length) {
         
-        const tile = document.getElementById(
-        `r${aktuelleZeile}c${aktuelleSpalte}`
-        );
-        
-        tile.textContent = event.key.toUpperCase();
-        
-        aktuelleSpalte++;
-        }
+                const tile = document.getElementById(
+                `r${current_line}c${current_column}`
+                );
+                
+                tile.textContent = event.key.toUpperCase();
+                
+                current_word += event.key.toLowerCase();
+                current_column++;
+            }
         }
         
 
         if (event.key === "Backspace") {
 
-            if (aktuelleSpalte > 0) {
+            if (current_column > 0) {
 
-                aktuelleSpalte--;
-
+                current_column--;
+                current_word = current_word.slice(0, -1);
                 const tile = document.getElementById(
-                    `r${aktuelleZeile}c${aktuelleSpalte}`
+                    `r${current_line}c${current_column}`
                 );
 
                 tile.textContent = "";
@@ -166,10 +169,20 @@
 
         if (event.key === "Enter") {
 
-            if (aktuelleSpalte === wortLaenge) {
+            if (current_column === word_length) {
 
-                aktuelleZeile++;
-                aktuelleSpalte = 0;
+                current_line++;
+                current_column = 0;
+                fetch("/guess", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "current_word": current_word
+                    })
+                })
+                current_word = ""
             }
         }
     });
