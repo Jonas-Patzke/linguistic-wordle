@@ -30,9 +30,25 @@ def letter_status(word,guess): #input are the worde we have to gues and our gues
         letter_pos += 1
     return color_list
 
-def give_hint(word, properties, try_number):
-    info = properties[word]
-    
+try_number = 0
 
+def give_hint(word, properties):
+    global try_number
+    try_number += 1
+    info = properties[word]
+    if try_number == 1:
+        return f"The word has {info['syllables']} syllables."
+    elif try_number == 2:
+        return f"The word is a {info['pos']}."
+    elif try_number == 3:
+        return f"The word starts with '{word[0]}'."
+    elif try_number == 4:
+        return f"The word has {info['length']} letters."
+    elif try_number == 5:
+        return f"The word ends with '{word[-1]}'."
+    elif try_number == 6:
+        return f"The word appears {info['frequency']} times in the text."
+    else:
+        return "No more hints available."
 
 print(pick_random_word({1:1,2:2,3:3}))
