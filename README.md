@@ -21,8 +21,8 @@ Our goal is an interactive word-guessing game based on real linguistic data.
 3. Enter your guesses in the input field.
 4. The different colors have different meanings for the letters.
    - **grey**: letter is not contained in the word.
-   - **yellow**: correct letter, but in the wrong position
-   - **green**: correct letter in the correct position
+   - **yellow**: correct letter, but in the wrong position.
+   - **green**: correct letter in the correct position.
 5. Continue to guess until you find the right word or run out of attempts.
 
 # Contributions
