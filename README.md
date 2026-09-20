@@ -4,6 +4,14 @@ Linguistic-wordle is a wordle inspired game, which uses words extracted from the
 Our goal is an interactive word-guessing game based on real linguistic data.
 
 # Features
+- Extracts words from *Moby Dick*
+- Tokenization and lemmatization with spacy
+- Removes proper nouns
+- Filters words by length (5-10 characters)
+- Computes linguistic features like word length, part-of-speech, syllable count...
+- builds a custom database
+- provides game logic in wordle-style
+- runs as a small Flask web application
 
 # Installation & Setup
 
