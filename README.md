@@ -3,11 +3,11 @@
 Linguistic-wordle is a wordle inspired game, which uses words extracted from the novel *Moby Dick* and enriches them with linguistic features. The project builds a custom word database by using Natural Language Processing tools like spacy and NLTK. 
 Our goal is an interactive word-guessing game based on real linguistic data.
 
-**Features**
+# Features
 
-**Installation & Setup**
+# Installation & Setup
 
-**Usage**
+# Usage
 1. Open the link http://127.0.0.1:5000 to open the game.
 2. Click "Start Game" to begin to play.
 3. Enter your guesses in the input field.
@@ -17,8 +17,8 @@ Our goal is an interactive word-guessing game based on real linguistic data.
    - **green**: correct letter in the correct position
 5. Continue to guess until you find the right word or run out of attempts.
 
-**Contributions**
+# Contributions
 Jonas Patzke, Veronika Rapp and Lina Bang are maintainers for this repository
 
-**License**
+# License
 For our data we used the licens-free novel "Moby Dick".
