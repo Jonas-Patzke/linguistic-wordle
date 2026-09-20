@@ -30,5 +30,9 @@ def letter_status(word,guess): #input are the worde we have to gues and our gues
         letter_pos += 1
     return color_list
 
+def give_hint(word, properties, try_number):
+    info = properties[word]
+    
+
 
 print(pick_random_word({1:1,2:2,3:3}))
