@@ -26,7 +26,7 @@ Our goal is an interactive word-guessing game based on real linguistic data.
 5. Continue to guess until you find the right word or run out of attempts.
 
 # Contributions
-Jonas Patzke, Veronika Rapp and Lina Bang are maintainers for this repository
+Jonas Patzke, Veronika Rapp and Lina Bang are maintainers for this repository.
 
 # License
 For our data we used the licens-free novel "Moby Dick".
