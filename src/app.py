@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+from game_logic import give_hint
+
 app = Flask(__name__)
 @app.route("/")
 def startseite():
@@ -8,6 +10,7 @@ def startseite():
 
 solution = "butterfly"
 length_of_word= len(solution)
+
 @app.route("/game")
 def game():
     return render_template("game.html", 
@@ -27,8 +30,9 @@ def guess():
 
     return "wrong"
 
+@app.route("/hint")
+def hint():
+    return give_hint(solution, properties)
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
