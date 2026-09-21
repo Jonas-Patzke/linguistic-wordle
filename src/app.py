@@ -30,9 +30,5 @@ def guess():
 
     return "wrong"
 
-@app.route("/hint")
-def hint():
-    return give_hint(solution, properties)
-
 if __name__ == "__main__":
     app.run(debug=True)
