@@ -32,13 +32,37 @@
             top:20%;    
             left:35%;
         }
+
+        #hintContainer {
+            position: absolute;
+            top:10%;
+            left:35%;
+        }
+
+        #hintButton {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #hint {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+    <div id="hintContainer">
+        <button id="hintButton">HINT</button>
+        <div id="hint"></div>
+    </div>
+
     <div class="keyboard">
 
- 
+ 
 
         <div class="row">
 
@@ -105,7 +129,9 @@
             
         </div>
     </div>
+
     <div id="board"></div>
+
     <script>
         const tries = 6;
         const word_to_guess = "{{solution}}";
@@ -130,6 +156,18 @@
 
             board.appendChild(row);
         }
+
+        const hintButton = document.getElementById("hintButton");
+        const hint = document.getElementById("hint");
+
+        hintButton.addEventListener("click", function() {
+
+            const hintPosition = Math.floor(Math.random() * word_length);
+            const hintLetter = word_to_guess[hintPosition].toUpperCase();
+
+            hint.textContent = `Hint: The letter at position ${hintPosition + 1} is ${hintLetter}.`;
+
+        });
         
         let current_column = 0;
         let current_line = 0;
