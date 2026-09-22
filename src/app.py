@@ -6,14 +6,14 @@ app = Flask(__name__)
 def startseite():
     word = "Haus"
     versuche = 6
-    return render_template("wordle.html", word=word, versuche=versuche)
+    return render_template("game_menu.html", word=word, versuche=versuche)
 
 solution = "butterfly"
 length_of_word= len(solution)
 
 @app.route("/game")
 def game():
-    return render_template("game.html", 
+    return render_template("wordle.html", 
     solution= solution, 
     length_of_word= length_of_word
     )

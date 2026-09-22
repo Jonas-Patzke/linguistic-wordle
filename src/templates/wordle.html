@@ -6,38 +6,187 @@
     <title>Linguistic Wordle</title>
 
     <style>
-        h1 {
-            font-family: Arial, sans-serif;
-            font-size: 48px;
+        .keyboard{
             position: absolute;
-            top: 30%;
-            left: 32.5%;
-            }
-         h2 {
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            position: absolute;
-            top: 40%;
-            left: 40%;
-            }
-        button {
-            font-family: Arial, sans-serif;
-            font-size: 48px;
-            posiTion: absolute;
-            top: 50%;
-            left: 45%
+            top:60%;    
+            left:35%;
         }
-        
+        .row {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .tile {
+            width: 40px;
+            height: 40px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }   
+        #board{
+            position: absolute;
+            top:20%;    
+            left:35%;
+        }
     </style>
 </head>
 
 <body>
-    <h1>LINGUISTIC WORDLE</h1>
-    <h2>by Veronika Rapp and Jonas Patzke</h2>
-    <button onclick="window.location.href='/game'">PLAY</button>
+    <div class="keyboard">
 
+ 
+
+        <div class="row">
+
+            <button class="key">Q</button>
+
+            <button class="key">W</button>
+
+            <button class="key">E</button>
+
+            <button class="key">R</button>
+
+            <button class="key">T</button>
+
+            <button class="key">Y</button>
+
+            <button class="key">U</button>
+
+            <button class="key">I</button>
+
+            <button class="key">O</button>
+
+            <button class="key">P</button>
+
+        </div>
+        
+        <div class="row">
+
+            <button class="key">A</button>
+            
+            <button class="key">S</button>
+            
+            <button class="key">D</button>
+            
+            <button class="key">F</button>
+            
+            <button class="key">G</button>
+            
+            <button class="key">H</button>
+            
+            <button class="key">J</button>
+            
+            <button class="key">K</button>
+            
+            <button class="key">L</button>
+            
+        </div>
+            
+            
+        <div class="row">
+            
+            <button class="key">Z</button>
+            
+            <button class="key">X</button>
+            
+            <button class="key">C</button>
+            
+            <button class="key">V</button>
+            
+            <button class="key">B</button>
+            
+            <button class="key">N</button>
+            
+            <button class="key">M</button>
+            
+        </div>
+    </div>
+    <div id="board"></div>
     <script>
+        const tries = 6;
+        const word_to_guess = "{{solution}}";
+        const word_length = {{length_of_word}};  
 
+        const board = document.getElementById("board");
+
+        for (let r = 0; r < tries; r++) {
+
+            const row = document.createElement("div");
+            row.classList.add("row");
+
+            for (let c = 0; c < word_length; c++) {
+
+                const tile = document.createElement("div");
+
+                tile.classList.add("tile");
+                tile.id = `r${r}c${c}`;
+
+                row.appendChild(tile);
+            }
+
+            board.appendChild(row);
+        }
+        
+        let current_column = 0;
+        let current_line = 0;
+        let current_word = "";
+
+        document.addEventListener("keydown", function(event) {
+        
+        if (/^[a-zA-Z]$/.test(event.key)) {
+        
+            if (current_column < word_length) {
+        
+                const tile = document.getElementById(
+                `r${current_line}c${current_column}`
+                );
+                
+                tile.textContent = event.key.toUpperCase();
+                
+                current_word += event.key.toLowerCase();
+                current_column++;
+            }
+        }
+        
+
+        if (event.key === "Backspace") {
+
+            if (current_column > 0) {
+
+                current_column--;
+                current_word = current_word.slice(0, -1);
+                const tile = document.getElementById(
+                    `r${current_line}c${current_column}`
+                );
+
+                tile.textContent = "";
+            }
+        }
+
+        if (event.key === "Enter") {
+
+            if (current_column === word_length) {
+
+                current_line++;
+                current_column = 0;
+                fetch("/guess", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "current_word": current_word
+                    })
+                })
+                current_word = ""
+            }
+        }
+    });
+        
     </script>
    
 
