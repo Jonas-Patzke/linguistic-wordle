@@ -16,12 +16,12 @@ def is_correct(word, guess):
         return True
     return False
 
-def letter_status(word,guess): #input are the worde we have to gues and our guess
+def letter_status(solution,guess): #input are the worde we have to gues and our guess
     letter_pos = 0
     color_list = [] #list where we want to append colors
-    letters = set(word) #set to test, if we want to append yellow
+    letters = set(solution) #set to test, if we want to append yellow
     for letter in guess:
-        if letter == word[letter_pos]: #correct letter in correct position = append greeb
+        if letter == solution[letter_pos]: #correct letter in correct position = append greeb
             color_list.append("green")
         elif letter in letters: #letter in wrong position = append yellow
             color_list.append("yellow")

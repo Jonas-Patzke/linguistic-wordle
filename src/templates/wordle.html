@@ -6,6 +6,18 @@
     <title>Linguistic Wordle</title>
 
     <style>
+
+        .green {
+            background-color: green;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .grey {
+            background-color: grey;
+        }
         .keyboard{
             position: absolute;
             top:60%;    
@@ -168,11 +180,8 @@
         }
 
         if (event.key === "Enter") {
-
             if (current_column === word_length) {
-
-                current_line++;
-                current_column = 0;
+                const rowToColor = current_line;
                 fetch("/guess", {
                     method: "POST",
                     headers: {
@@ -182,7 +191,19 @@
                         "current_word": current_word
                     })
                 })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    data.colors.forEach((color, index) => {
+                    const tile = document.getElementById(
+                        `r${rowToColor}c${index}`
+                    );
+                        tile.classList.add(color);
+                    });
+                });
                 current_word = ""
+                current_line++;
+                current_column = 0;
             }
         }
     });

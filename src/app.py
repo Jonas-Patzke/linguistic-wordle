@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request
-from game_logic import give_hint
+from flask import Flask, render_template, request, jsonify
+import game_logic
 
 app = Flask(__name__)
 @app.route("/")
-def startseite():
+def game_menu():
     word = "Haus"
     versuche = 6
     return render_template("game_menu.html", word=word, versuche=versuche)
@@ -22,13 +22,16 @@ def game():
 def guess():
     data = request.get_json()
     word = data["current_word"]
-
     print("Eingabe:", word)
-
-    if word == solution:
-        return "right"
-
-    return "wrong"
+    if game_logic.is_correct(solution, word):
+        return jsonify({
+            "won": "true",
+            "colors": game_logic.letter_status(solution, word)
+        })
+    return jsonify({
+        "won": "false",
+        "colors": game_logic.letter_status(solution, word)
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
