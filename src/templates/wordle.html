@@ -7,6 +7,13 @@
 
     <style>
 
+        #message{
+            position: absolute;
+            top:8%;    
+            left:40%;
+            font-size: 5rem;
+        }
+
         .green {
             background-color: green;
         }
@@ -48,6 +55,8 @@
 </head>
 
 <body>
+    <div id="message"></div>
+
     <div class="keyboard">
 
  
@@ -146,67 +155,72 @@
         let current_column = 0;
         let current_line = 0;
         let current_word = "";
-
-        document.addEventListener("keydown", function(event) {
+        document.addEventListener("keydown", handleKeyDown);
+        function handleKeyDown(event){
         
-        if (/^[a-zA-Z]$/.test(event.key)) {
-        
-            if (current_column < word_length) {
-        
-                const tile = document.getElementById(
-                `r${current_line}c${current_column}`
-                );
-                
-                tile.textContent = event.key.toUpperCase();
-                
-                current_word += event.key.toLowerCase();
-                current_column++;
-            }
-        }
-        
-
-        if (event.key === "Backspace") {
-
-            if (current_column > 0) {
-
-                current_column--;
-                current_word = current_word.slice(0, -1);
-                const tile = document.getElementById(
-                    `r${current_line}c${current_column}`
-                );
-
-                tile.textContent = "";
-            }
-        }
-
-        if (event.key === "Enter") {
-            if (current_column === word_length) {
-                const rowToColor = current_line;
-                fetch("/guess", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "current_word": current_word
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    data.colors.forEach((color, index) => {
+            if (/^[a-zA-Z]$/.test(event.key)) {
+            
+                if (current_column < word_length) {
+            
                     const tile = document.getElementById(
-                        `r${rowToColor}c${index}`
+                    `r${current_line}c${current_column}`
                     );
-                        tile.classList.add(color);
-                    });
-                });
-                current_word = ""
-                current_line++;
-                current_column = 0;
+                    
+                    tile.textContent = event.key.toUpperCase();
+                    
+                    current_word += event.key.toLowerCase();
+                    current_column++;
+                }
             }
-        }
-    });
+            
+
+            if (event.key === "Backspace") {
+
+                if (current_column > 0) {
+
+                    current_column--;
+                    current_word = current_word.slice(0, -1);
+                    const tile = document.getElementById(
+                        `r${current_line}c${current_column}`
+                    );
+
+                    tile.textContent = "";
+                }
+            }
+
+            if (event.key === "Enter") {
+                if (current_column === word_length) {
+                    const rowToColor = current_line;
+                    fetch("/guess", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "current_word": current_word
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        data.colors.forEach((color, index) => {
+                        const tile = document.getElementById(
+                            `r${rowToColor}c${index}`
+                            );
+                            tile.classList.add(color);
+                        });
+                        if (data.won){
+                            document.getElementById("message").innerText = "You Won!";
+                            document.removeEventListener("keydown", handleKeyDown);
+                            
+                        }
+                    });
+                    current_word = ""
+                    current_line++;
+                    current_column = 0;
+                }
+            }
+    };
         
     </script>
    

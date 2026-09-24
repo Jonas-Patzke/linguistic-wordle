@@ -25,11 +25,11 @@ def guess():
     print("Eingabe:", word)
     if game_logic.is_correct(solution, word):
         return jsonify({
-            "won": "true",
+            "won": True,
             "colors": game_logic.letter_status(solution, word)
         })
     return jsonify({
-        "won": "false",
+        "won": False,
         "colors": game_logic.letter_status(solution, word)
     })
 
