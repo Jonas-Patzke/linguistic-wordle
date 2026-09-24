@@ -214,10 +214,17 @@
                             document.removeEventListener("keydown", handleKeyDown);
                             
                         }
+                        const wrongLetters = data.wrong_letters;
+                        document.querySelectorAll(".key").forEach(key => {
+                            if (wrongLetters.includes(key.innerText)) {
+                                key.style.backgroundColor = "grey";
+                            }
+                        })
                     });
                     current_word = ""
                     current_line++;
                     current_column = 0;
+
                 }
             }
     };

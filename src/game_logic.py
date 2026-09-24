@@ -18,6 +18,7 @@ def is_correct(word, guess):
 
 def letter_status(solution,guess): #input are the worde we have to gues and our guess
     letter_pos = 0
+    wrong_letters = set() #a set of letters we guessed, but are not in the word so we can visualize is on our letter board in html
     color_list = [] #list where we want to append colors
     letters = set(solution) #set to test, if we want to append yellow
     for letter in guess:
@@ -27,8 +28,9 @@ def letter_status(solution,guess): #input are the worde we have to gues and our 
             color_list.append("yellow")
         else:   #nothing of the above = append grey
             color_list.append("grey")
+            wrong_letters.add(letter.upper())
         letter_pos += 1
-    return color_list
+    return [color_list, wrong_letters]
 
 try_number = 0
 
