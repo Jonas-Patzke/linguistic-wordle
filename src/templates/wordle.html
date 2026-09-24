@@ -130,6 +130,7 @@
     <script>
         const tries = 6;
         const word_to_guess = "{{solution}}";
+        console.log(word_to_guess) //we can always look up our word in the console by pressing f12 in our browser
         const word_length = {{length_of_word}};  
 
         const board = document.getElementById("board");
@@ -158,9 +159,9 @@
         document.addEventListener("keydown", handleKeyDown);
         function handleKeyDown(event){
         
-            if (/^[a-zA-Z]$/.test(event.key)) {
+            if (/^[a-zA-Z]$/.test(event.key)) { //press a letter to write your guess
             
-                if (current_column < word_length) {
+                if (current_column < word_length) { //you cant type more letters than the lenght of the word
             
                     const tile = document.getElementById(
                     `r${current_line}c${current_column}`
@@ -174,7 +175,7 @@
             }
             
 
-            if (event.key === "Backspace") {
+            if (event.key === "Backspace") { //press backspace to delete the last tipped letter 
 
                 if (current_column > 0) {
 
@@ -188,8 +189,8 @@
                 }
             }
 
-            if (event.key === "Enter") {
-                if (current_column === word_length) {
+            if (event.key === "Enter") { //press enter to guess
+                if (current_column === word_length) { //only possible if the count of the letters of your guess = count of letters of the word to guess
                     const rowToColor = current_line;
                     fetch("/guess", {
                         method: "POST",
@@ -203,27 +204,27 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        data.colors.forEach((color, index) => {
+                        data.colors.forEach((color, index) => { //color the letters of the guessed word
                         const tile = document.getElementById(
                             `r${rowToColor}c${index}`
                             );
                             tile.classList.add(color);
                         });
-                        if (data.won){
-                            document.getElementById("message").innerText = "You Won!";
-                            document.removeEventListener("keydown", handleKeyDown);
+                        if (data.won){ //data.won is only true, if you guessed the right word
+                            document.getElementById("message").innerText = "You Won!"; //message "you won!"
+                            document.removeEventListener("keydown", handleKeyDown); //disable the function to type more letters
                             
                         }
-                        const wrongLetters = data.wrong_letters;
+                        const wrongLetters = data.wrong_letters;  //this is to paint letters of the board grey
                         document.querySelectorAll(".key").forEach(key => {
                             if (wrongLetters.includes(key.innerText)) {
                                 key.style.backgroundColor = "grey";
                             }
                         })
                     });
-                    current_word = ""
-                    current_line++;
-                    current_column = 0;
+                    current_word = "" //reset current_word since it is always the guessed word
+                    current_line++; //enter the next line of the tries to guess
+                    current_column = 0; // so you start at the first column
 
                 }
             }

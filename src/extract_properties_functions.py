@@ -2,9 +2,9 @@ import nltk
 from nltk.corpus import cmudict
 import re
 nltk.download('cmudict')
-cmu = cmudict.dict() #cmudict to python dict
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
+cmu = cmudict.dict() #cmudict to python dict
 
 def number_of_letters(lemma: list): #extract the number of letters
   len_dict = {}

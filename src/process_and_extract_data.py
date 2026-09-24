@@ -25,5 +25,7 @@ word_syllables_count = epf.extract_syllables(final_lemma)
 word_constituents_count = epf.extract_constituents(token)
 properties_dict_list = [word_length, pos_tags, word_frequenzies, word_syllables_count]
 propertie_dict = bd.create_propertie_dict(final_lemma, properties_dict_list)
-print(propertie_dict) #just for testsing and visualisation
-print(len(propertie_dict)) #just for testing and visualisation
+#print(propertie_dict) #just for testsing and visualisation
+#print(len(propertie_dict)) #just for testing and visualisation
+bd.create_pickle(propertie_dict)
+print("done")

@@ -8,7 +8,7 @@ def game_menu():
     versuche = 6
     return render_template("game_menu.html", word=word, versuche=versuche)
 
-solution = "butterfly"
+solution = game_logic.pick_random_word()# picks a random word out of our data
 length_of_word= len(solution)
 
 @app.route("/game")

@@ -1,8 +1,10 @@
+from build_database import read_pickle as rp
 from nltk.corpus import cmudict
 import random
 cmu = cmudict.dict() #cmudict to python dict
 
-def pick_random_word(dict_with_words): #pick a random word the player has to guess
+def pick_random_word(): #pick a random word the player has to guess
+    dict_with_words = rp()
     random_number = random.randint(0, len(dict_with_words) -1)
     return list(dict_with_words.keys())[random_number]
 
@@ -34,7 +36,7 @@ def letter_status(solution,guess): #input are the worde we have to gues and our 
 
 try_number = 0
 
-def give_hint(word, properties):
+def give_hint(word, properties): #input is a word and a list of its properties, more exactly give_hint(word, dictionary.get(word))
     global try_number
     try_number += 1
     info = properties[word]
