@@ -9,7 +9,7 @@ def load_text(path):     #load text from a file
   with open(path, "r", encoding="utf-8") as f:
     return f.read()
 
-def extract_chapters(text, n=3):     #extract the first n chapters
+def extract_chapters(text, n):     #extract the first n chapters
   parts = text.split("CHAPTER ")[1:]
   selected = parts[:n]
   return "\n".join("CHAPTER" + p for p in selected)
@@ -18,9 +18,9 @@ def save_text(path, content):      #save text in a file
   with open(path, "w", encoding="utf-8") as f:
     f.write(content)
 
-def run_extraction():   #the whole extraction Prozess
+def run_extraction(count_of_chapters: int):   #the whole extraction Prozess
   raw = load_text("../data/MOBY-DICK; or, THE WHALE.txt")
-  chapters = extract_chapters(raw, 3)
+  chapters = extract_chapters(raw, count_of_chapters )
   save_text("../data/first_three_chapters.txt", chapters)
   return "../data/first_three_chapters.txt"
 
@@ -101,7 +101,7 @@ def only_words_with_extractable_syllables(words):
 #Wrap it all up in a function
 
 def create_token():
-    extracted_chapters = run_extraction() #extract chapters
+    extracted_chapters = run_extraction(20) #extract chapters
     token = tokenize(clean_lowercase(extracted_chapters)) #1. put everything in lower case, 2. tokenize
     filtered_token = filter_tokens(token) #filter to remove stopwords and every token, that doesnt 
     return filtered_token

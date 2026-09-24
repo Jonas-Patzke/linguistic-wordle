@@ -11,11 +11,11 @@ def create_propertie_dict(words, dicts: list):
         final_dict.update({word: word_properties})
     return final_dict
 
-def create_pickle(content): #our content sould be the propertie dict, from this dict we will pick a random word
-    with open("../data/propertie_dict.pkl", "wb") as pickle_outfile:
+def create_pickle(file_path,content): #our content sould be the propertie dict, from this dict we will pick a random word
+    with open(file_path, "wb") as pickle_outfile:
         pickle.dump(content, pickle_outfile)
 
-def read_pickle():
+def read_pickle(file_path):
     with open("../data/propertie_dict.pkl", "rb") as pickle_infile:
         return pickle.load(pickle_infile)
 

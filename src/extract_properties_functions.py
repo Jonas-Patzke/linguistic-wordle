@@ -6,6 +6,9 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 cmu = cmudict.dict() #cmudict to python dict
 
+def return_cmu_dict():
+  return cmu
+
 def number_of_letters(lemma: list): #extract the number of letters
   len_dict = {}
   for lemmas in lemma:

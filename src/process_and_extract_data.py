@@ -13,7 +13,7 @@ for lemma in lemma2: #lemma1 cleans our words, since the function remove_proper_
 
 desired_length = [
     w for w in final_lemma
-    if 5 <= len(w) <= 10
+    if 5 <= len(w) <= 7
 ]
 
 final_lemma = desired_length
@@ -27,5 +27,7 @@ properties_dict_list = [word_length, pos_tags, word_frequenzies, word_syllables_
 propertie_dict = bd.create_propertie_dict(final_lemma, properties_dict_list)
 #print(propertie_dict) #just for testsing and visualisation
 #print(len(propertie_dict)) #just for testing and visualisation
-bd.create_pickle(propertie_dict)
+bd.create_pickle("../data/propertie_dict.pkl",propertie_dict) # create a pickle for our propertie_dict, so we dont always have to load it
+print("count of entries: " + str(len(propertie_dict))) #output to see how many word entreis we got
+bd.create_pickle("../data/CMUdict_5_to_7.pkl", [element for element in epf.return_cmu_dict() if 5 <= len(element) <= 7]) #store only words that are between 5 to 7 letters long
 print("done")
