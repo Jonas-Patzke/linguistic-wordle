@@ -16,7 +16,7 @@ def create_pickle(file_path,content): #our content sould be the propertie dict, 
         pickle.dump(content, pickle_outfile)
 
 def read_pickle(file_path):
-    with open("../data/propertie_dict.pkl", "rb") as pickle_infile:
+    with open(file_path, "rb") as pickle_infile:
         return pickle.load(pickle_infile)
 
     

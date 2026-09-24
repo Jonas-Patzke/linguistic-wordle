@@ -1,17 +1,14 @@
 from build_database import read_pickle as rp
-from nltk.corpus import cmudict
 import random
-cmu = cmudict.dict() #cmudict to python dict
 
 def pick_random_word(): #pick a random word the player has to guess
-    dict_with_words = rp()
+    dict_with_words = rp("../data/propertie_dict.pkl")
     random_number = random.randint(0, len(dict_with_words) -1)
     return list(dict_with_words.keys())[random_number]
 
 def word_is_valid(guess): #a word should only be able to guess if its an actuall word in the cmudict
-    if guess.lower() in cmu:
-        return True
-    return False
+    cmu = rp("../data/CMUdict_5_to_7.pkl")
+    return guess.lower() in cmu
 
 def is_correct(word, guess): #test if the guess is correct
     if guess == word:

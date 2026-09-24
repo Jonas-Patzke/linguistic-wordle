@@ -10,8 +10,15 @@
         #message{
             position: absolute;
             top:8%;    
-            left:40%;
+            left:35%;
             font-size: 5rem;
+        }
+
+        #invalid_word{
+           position: absolute;
+            top:8%;    
+            left:35%;
+            font-size: 5rem; 
         }
 
         .green {
@@ -56,6 +63,8 @@
 
 <body>
     <div id="message"></div>
+
+    <div id="invalid_word"></div>
 
     <div class="keyboard">
 
@@ -184,7 +193,7 @@
                     const tile = document.getElementById(
                         `r${current_line}c${current_column}`
                     );
-
+                    document.getElementById("invalid_word").innerText = "";
                     tile.textContent = "";
                 }
             }
@@ -204,27 +213,33 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        data.colors.forEach((color, index) => { //color the letters of the guessed word
-                        const tile = document.getElementById(
-                            `r${rowToColor}c${index}`
-                            );
-                            tile.classList.add(color);
-                        });
-                        if (data.won){ //data.won is only true, if you guessed the right word
-                            document.getElementById("message").innerText = "You Won!"; //message "you won!"
-                            document.removeEventListener("keydown", handleKeyDown); //disable the function to type more letters
-                            
+                        if (data.valid === false){
+                            document.getElementById("invalid_word").innerText = "Invalid Word!";
                         }
-                        const wrongLetters = data.wrong_letters;  //this is to paint letters of the board grey
-                        document.querySelectorAll(".key").forEach(key => {
-                            if (wrongLetters.includes(key.innerText)) {
-                                key.style.backgroundColor = "grey";
+                        else{
+                            data.colors.forEach((color, index) => { //color the letters of the guessed word
+                            const tile = document.getElementById(
+                                `r${rowToColor}c${index}`
+                                );
+                                tile.classList.add(color);
+                            });
+                            if (data.won){ //data.won is only true, if you guessed the right word
+                                document.getElementById("message").innerText = "You Won!"; //message "you won!"
+                                document.removeEventListener("keydown", handleKeyDown); //disable the function to type more letters
+                                
                             }
-                        })
+                            const wrongLetters = data.wrong_letters;  //this is to paint letters of the board grey
+                            document.querySelectorAll(".key").forEach(key => {
+                                if (wrongLetters.includes(key.innerText)) {
+                                    key.style.backgroundColor = "grey";
+                                }
+                            })
+                            current_word = "" //reset current_word since it is always the guessed word
+                            current_line++; //enter the next line of the tries to guess
+                            current_column = 0; // so you start at the first column
+                        }
                     });
-                    current_word = "" //reset current_word since it is always the guessed word
-                    current_line++; //enter the next line of the tries to guess
-                    current_column = 0; // so you start at the first column
+                   
 
                 }
             }

@@ -27,12 +27,18 @@ def guess():
         return jsonify({
             "won": True,
             "colors": game_logic.letter_status(solution, word)[0],
-            "wrong_letters": list(game_logic.letter_status(solution, word)[1])
+            "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
+            "valid": True
+        })
+    elif game_logic.word_is_valid(word) == False:
+        return jsonify({
+            "valid" : False
         })
     return jsonify({
         "won": False,
         "colors": game_logic.letter_status(solution, word)[0],
-        "wrong_letters": list(game_logic.letter_status(solution, word)[1])
+        "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
+        "valid": True
 
     })
 
