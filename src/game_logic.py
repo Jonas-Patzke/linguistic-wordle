@@ -2,16 +2,16 @@ from nltk.corpus import cmudict
 import random
 cmu = cmudict.dict() #cmudict to python dict
 
-def pick_random_word(dict_with_words):
+def pick_random_word(dict_with_words): #pick a random word the player has to guess
     random_number = random.randint(0, len(dict_with_words) -1)
     return list(dict_with_words.keys())[random_number]
 
-def word_is_valid(guess):
+def word_is_valid(guess): #a word should only be able to guess if its an actuall word in the cmudict
     if guess.lower() in cmu:
         return True
     return False
 
-def is_correct(word, guess):
+def is_correct(word, guess): #test if the guess is correct
     if guess == word:
         return True
     return False
@@ -28,9 +28,9 @@ def letter_status(solution,guess): #input are the worde we have to gues and our 
             color_list.append("yellow")
         else:   #nothing of the above = append grey
             color_list.append("grey")
-            wrong_letters.add(letter.upper())
+            wrong_letters.add(letter.upper()) #upper() since our boxes in html inherit the upper version of a letter 
         letter_pos += 1
-    return [color_list, wrong_letters]
+    return [color_list, wrong_letters] #return the colors in the order we have to paint our guessed letters and all the letters we guessed and arent in the word
 
 try_number = 0
 
@@ -53,4 +53,4 @@ def give_hint(word, properties):
     else:
         return "No more hints available."
 
-print(pick_random_word({1:1,2:2,3:3}))
+
