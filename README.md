@@ -14,6 +14,7 @@ Our goal is an interactive word-guessing game based on real linguistic data.
 - runs as a small Flask web application
 
 # Installation & Setup
+You can just clone the project and install the required packages, which you need to start the game. Then you can just run the main.py data and the game opens automaticly.
 
 # Usage
 1. Open the link http://127.0.0.1:5000 to open the game.
