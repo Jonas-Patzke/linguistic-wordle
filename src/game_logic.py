@@ -44,7 +44,7 @@ def give_hint(word, properties): #input is a word and a list of its properties, 
     elif try_number == 3:
         return f"The word starts with '{word[0]}'."
     elif try_number == 4:
-        return f"The word has {info['length']} letters."
+        return f"The word has {info['length']} letters." #unnötig, maybe rausnehmen
     elif try_number == 5:
         return f"The word ends with '{word[-1]}'."
     elif try_number == 6:
