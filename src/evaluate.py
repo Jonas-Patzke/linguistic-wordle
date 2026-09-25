@@ -39,11 +39,11 @@ def word_distribution(file): #input should be one of our pickle files, either th
     return distribution #returns a dict with pos-tags as keys and the count of word with this tag as value
         
 
-def create_diagram(distribution_dict):
-    df = pd.DataFrame(word_distribution(distribution_dict).items(), columns=["pos-tag", "count"])
-    diagram = df.plot(x="pos-tag", y="count", kind="bar", stacked=True, figsize=(10, 8))
-    plt.show()
+def create_diagram(distribution_dict): 
+    df = pd.DataFrame(word_distribution(distribution_dict).items(), columns=["pos-tag", "count"]) #create a datafram
+    diagram = df.plot(x="pos-tag", y="count", kind="bar", stacked=True, figsize=(10, 8)) #create the diagram
+    plt.show() #show the diagram
 
-#create_diagram("../data/propertie_dict.pkl")
-#create_diagram("../data/CMUdict_5_to_7.pkl")
+#create_diagram("../data/propertie_dict.pkl") #create a diagram for the pos-tag distribution over the propertie dict
+#create_diagram("../data/CMUdict_5_to_7.pkl") ##create a diagram for the pos-tag distribution over the cmu dict
 

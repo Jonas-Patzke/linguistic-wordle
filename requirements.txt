@@ -4,3 +4,4 @@ spacy==3.8.14
 en_core_web_sm==3.8.0
 gspread==6.2.1
 google-auth==2.58.1
+matplotlib==3.11.2
