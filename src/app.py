@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import game_logic
 from evaluate import write_data_tabel as wdt
+import time
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory
 
@@ -21,10 +22,12 @@ def game():
     length_of_word= length_of_word
     )
 
+start_time = time.time()
 tries = 0
 guessed_words = []
 @app.route("/guess", methods=["POST"])
 def guess():
+    global start_time
     data = request.get_json()
     word = data["current_word"]
     global tries
@@ -38,9 +41,10 @@ def guess():
         player = "unknown"
     print("Eingabe:", word)
     if game_logic.is_correct(solution, word):
+        needed_time = round(time.time() - start_time, 2)
         open_tries = 6 - tries
         guessed_words.append(word)
-        data_list = [word, tries, True, "time",  player]
+        data_list = [word, tries, True, needed_time,  player]
         data_list.extend(guessed_words)
         data_list.extend("-" * open_tries) 
         try:
@@ -64,8 +68,9 @@ def guess():
     guessed_words.append(word)
     if tries == 6:
         tries_left = False
+        needed_time = round(time.time() - start_time, 2) 
         try:
-            data_list = [word, tries, False, "time",  player]
+            data_list = [word, tries, False, needed_time,  player]
             with open("../data/credentials.json"):
                 data_list.extend(guessed_words)
                 wdt(data_list)
@@ -75,13 +80,9 @@ def guess():
         "won": False,
         "colors": game_logic.letter_status(solution, word)[0],
         "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
-<<<<<<< HEAD
         "valid": True,
         "tries_left" : tries_left
 
-=======
-        "valid": True
->>>>>>> 99ee2f2e94d66cf40c70182a4148cd9923076d10
     })
 
 if __name__ == "__main__":
