@@ -165,6 +165,7 @@
         let current_column = 0;
         let current_line = 0;
         let current_word = "";
+        let isSubmitting = false;
         document.addEventListener("keydown", handleKeyDown);
         function handleKeyDown(event){
         
@@ -199,7 +200,12 @@
             }
 
             if (event.key === "Enter") { //press enter to guess
+                if (isSubmitting) {
+                    console.log("blockiert");
+                    return;
+                }
                 if (current_column === word_length) { //only possible if the count of the letters of your guess = count of letters of the word to guess
+                    isSubmitting = true;
                     const rowToColor = current_line;
                     fetch("/guess", {
                         method: "POST",
@@ -238,13 +244,17 @@
                             current_line++; //enter the next line of the tries to guess
                             current_column = 0; // so you start at the first column
                         }
-                    });
+                        
+                    })
+                    .catch(err => console.error(err))
+                    .finally(() => {
+                        isSubmitting = false;
                    
 
-                }
+                });
             }
     };
-        
+    }
     </script>
    
 

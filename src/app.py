@@ -81,7 +81,8 @@ def guess():
         "colors": game_logic.letter_status(solution, word)[0],
         "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
         "valid": True,
-        "tries_left" : tries_left
+        "tries_left" : tries_left,
+        "hint" : game_logic.give_hint(solution)
 
     })
 
