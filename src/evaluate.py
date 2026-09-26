@@ -10,12 +10,10 @@ scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-
 creds = Credentials.from_service_account_file(
     "../data/credentials.json",
     scopes=scopes
 )
-
 client = gspread.authorize(creds)
 sheet = client.open_by_url(
 "https://docs.google.com/spreadsheets/d/1A2AqtIRgllnj0LVhDF0N7CrbK-haPZxRQNYx09a9gTQ/edit?gid=0#gid=0"
@@ -44,6 +42,9 @@ def create_diagram(distribution_dict):
     diagram = df.plot(x="pos-tag", y="count", kind="bar", stacked=True, figsize=(10, 8)) #create the diagram
     plt.show() #show the diagram
 
-#create_diagram("../data/propertie_dict.pkl") #create a diagram for the pos-tag distribution over the propertie dict
+create_diagram("../data/propertie_dict.pkl") #create a diagram for the pos-tag distribution over the propertie dict
 #create_diagram("../data/CMUdict_5_to_7.pkl") ##create a diagram for the pos-tag distribution over the cmu dict
+
+def write_data_tabel(data: list): #data should have the form [word, tries, won: boolean, duration, player, 1st - 6th guess]
+    sheet.append_row(data)
 
