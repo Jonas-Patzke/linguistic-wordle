@@ -75,9 +75,13 @@ def guess():
         "won": False,
         "colors": game_logic.letter_status(solution, word)[0],
         "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
+<<<<<<< HEAD
         "valid": True,
         "tries_left" : tries_left
 
+=======
+        "valid": True
+>>>>>>> 99ee2f2e94d66cf40c70182a4148cd9923076d10
     })
 
 if __name__ == "__main__":
