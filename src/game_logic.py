@@ -37,6 +37,8 @@ def give_hint(word, properties): #input is a word and a list of its properties, 
     global try_number
     try_number += 1
     info = properties[word]
+    vowels = "aeiou"
+    vowels_count = sum(1 for letter in word.lower() if letter in vowels)
     if try_number == 1:
         return f"The word has {info['syllables']} syllables."
     elif try_number == 2:
@@ -44,7 +46,7 @@ def give_hint(word, properties): #input is a word and a list of its properties, 
     elif try_number == 3:
         return f"The word starts with '{word[0]}'."
     elif try_number == 4:
-        return f"The word has {info['length']} letters." #unnötig, maybe rausnehmen
+        return f"The word contains {vowel_count} vowel(s)."
     elif try_number == 5:
         return f"The word ends with '{word[-1]}'."
     elif try_number == 6:
