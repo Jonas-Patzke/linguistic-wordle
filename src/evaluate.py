@@ -42,7 +42,7 @@ def create_diagram(distribution_dict):
     diagram = df.plot(x="pos-tag", y="count", kind="bar", stacked=True, figsize=(10, 8)) #create the diagram
     plt.show() #show the diagram
 
-create_diagram("../data/propertie_dict.pkl") #create a diagram for the pos-tag distribution over the propertie dict
+#create_diagram("../data/propertie_dict.pkl") #create a diagram for the pos-tag distribution over the propertie dict
 #create_diagram("../data/CMUdict_5_to_7.pkl") ##create a diagram for the pos-tag distribution over the cmu dict
 
 def write_data_tabel(data: list): #data should have the form [word, tries, won: boolean, duration, player, 1st - 6th guess]
