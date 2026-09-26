@@ -34,14 +34,11 @@ def guess():
         return jsonify({
             "valid" : False
         })
-    hint = game_logic.give_hint(solution, game_logic.dictionary)
     return jsonify({
         "won": False,
         "colors": game_logic.letter_status(solution, word)[0],
         "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
-        "valid": True,
-        "hint": hint
-
+        "valid": True
     })
 
 if __name__ == "__main__":
