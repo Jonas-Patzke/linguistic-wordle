@@ -21,6 +21,28 @@
             font-size: 5rem; 
         }
 
+        #hint_text{
+            position: absolute;
+            top:20%;    
+            left:60%;
+            font-size: 2.5rem;
+        
+        }
+
+        #no_tries_left{
+            position: absolute;
+            top:8%;    
+            left:35%;
+            font-size: 5rem;
+        }
+
+        #word_was{
+            position: absolute;
+            top:70%;    
+            left:25%;
+            font-size: 3.5rem;
+        }
+
         .green {
             background-color: green;
         }
@@ -66,9 +88,14 @@
 
     <div id="invalid_word"></div>
 
+    <div id="hint_text"></div>
+
+    <div id="word_was"></div>
+
+    <div id="no_tries_left"></div>
+
     <div class="keyboard">
 
- 
 
         <div class="row">
 
@@ -137,6 +164,10 @@
     </div>
     <div id="board"></div>
     <script>
+
+        function addHint(text) {
+            document.getElementById("hint_text").innerHTML += text + "<br>";
+        }
         const tries = 6;
         const word_to_guess = "{{solution}}";
         console.log(word_to_guess) //we can always look up our word in the console by pressing f12 in our browser
@@ -233,6 +264,11 @@
                                 document.getElementById("message").innerText = "You Won!"; //message "you won!"
                                 document.removeEventListener("keydown", handleKeyDown); //disable the function to type more letters
                                 
+                            }
+                            addHint(data.hint)
+                            if ( data.tries_left === false){
+                                document.getElementById("no_tries_left").innerText = "You Lost!"
+                                document.getElementById("word_was").innerText = `The word was ${word_to_guess}!`
                             }
                             const wrongLetters = data.wrong_letters;  //this is to paint letters of the board grey
                             document.querySelectorAll(".key").forEach(key => {

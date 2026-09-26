@@ -44,7 +44,7 @@ def guess():
         needed_time = round(time.time() - start_time, 2)
         open_tries = 6 - tries
         guessed_words.append(word)
-        data_list = [word, tries, True, needed_time,  player]
+        data_list = [solution, tries, True, needed_time,  player]
         data_list.extend(guessed_words)
         data_list.extend("-" * open_tries) 
         try:
@@ -58,7 +58,8 @@ def guess():
             "colors": game_logic.letter_status(solution, word)[0],
             "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
             "valid": True,
-            "tries_left" : True
+            "tries_left" : True,
+            "hint": ""
         })
     elif game_logic.word_is_valid(word) == False:
         tries -=1
@@ -70,7 +71,7 @@ def guess():
         tries_left = False
         needed_time = round(time.time() - start_time, 2) 
         try:
-            data_list = [word, tries, False, needed_time,  player]
+            data_list = [solution, tries, False, needed_time,  player]
             with open("../data/credentials.json"):
                 data_list.extend(guessed_words)
                 wdt(data_list)
