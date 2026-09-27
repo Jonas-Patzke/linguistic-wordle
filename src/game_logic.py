@@ -49,8 +49,8 @@ def give_hint(word): #input is a word and a list of its properties, more exactly
     elif try_number == 4:
         return f"The word contains {vowels_count} vowel(s)."
     elif try_number == 5:
-        return f"The word ends with '{word[-1]}'."
-    elif try_number == 6:
         return f"The word appears {info["frequenzies"]} times in the text."
+    elif try_number == 6:
+        return f""
     else:
         return "No more hints available."
