@@ -15,11 +15,14 @@ creds = Credentials.from_service_account_file(
     scopes=scopes
 )
 client = gspread.authorize(creds)
-sheet = client.open_by_url(
+sheet1 = client.open_by_url(
 "https://docs.google.com/spreadsheets/d/1A2AqtIRgllnj0LVhDF0N7CrbK-haPZxRQNYx09a9gTQ/edit?gid=0#gid=0"
 ).sheet1
 
-#sheet.append_row(["test", 1, True, 60, "first test"])
+sheet2 = client.open_by_url(
+"https://docs.google.com/spreadsheets/d/1h02HEgTMySWGgAWkalbT35zez5A9_lhq0dfTx997jG4/edit?gid=0#gid=0"
+).sheet1
+
 
 def word_distribution(file): #input should be one of our pickle files, either the propertie_dict or the words from the CMUdict and ther pos-tags
     words= bd.read_pickle(file) #
@@ -45,6 +48,6 @@ def create_diagram(distribution_dict):
 #create_diagram("../data/propertie_dict.pkl") #create a diagram for the pos-tag distribution over the propertie dict
 #create_diagram("../data/CMUdict_5_to_7_without_propn.pkl") ##create a diagram for the pos-tag distribution over the cmu dict
 
-def write_data_tabel(data: list): #data should have the form [word, tries, won: boolean, duration, player, 1st - 6th guess]
+def write_data_tabel(sheet, data: list): #data should have the form [word, tries, won: boolean, duration, player, 1st - 6th guess]
     sheet.append_row(data)
 
