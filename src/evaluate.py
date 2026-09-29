@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd 
+from pathlib import Path
 import build_database as bd
 import os
 import matplotlib.pyplot as plt
@@ -48,3 +49,128 @@ def create_diagram(distribution_dict):
 def write_data_tabel(data: list): #data should have the form [word, tries, won: boolean, duration, player, 1st - 6th guess]
     sheet.append_row(data)
 
+def load_sheet_data(): #load the data from the sheet
+    data = sheet.get_all_values()
+    header = data[0]
+    rows = data[1:]
+    df = pd.DataFrame(rows, columns=header)
+
+    df["tries"] = pd.to_numeric(df["tries"], errors="coerce") # correct datatypes
+    df["won"] = df["won"].map({"TRUE": True, "FALSE": False})
+    df["duration"] = pd.to_numeric(df["duration"], errors="coerce")
+
+    return df
+
+def load_properties(): #load linguistic properties
+    return pd.read_pickle("../data/propertie_dict.pkl")
+
+def analyze_game_data(save_to_file=False):  # analysis function
+
+    df = load_sheet_data()
+    df["word"] = df["word"].str.lower()
+
+    props = load_properties()
+    props = {k.lower(): v for k, v in props.items()}
+
+    # Attach properties to the data
+    df["syllables"] = df["word"].apply(
+        lambda w: props.get(w, {}).get("syllables_count")
+    )
+
+    df["frequency"] = df["word"].apply(
+        lambda w: props.get(w, {}).get("frequenzies")
+    )
+
+    df["pos"] = df["word"].apply(
+        lambda w: props.get(w, {}).get("pos")
+    )
+
+    df["vowels"] = df["word"].apply(
+    lambda w: sum(letter in "aeiou" for letter in w)
+    )
+    # Convert columns to numeric
+    df["tries"] = pd.to_numeric(df["tries"], errors="coerce")
+    df["vowels"] = pd.to_numeric(df["vowels"], errors="coerce")
+    df["syllables"] = pd.to_numeric(df["syllables"], errors="coerce")
+    df["frequency"] = pd.to_numeric(df["frequency"], errors="coerce")
+    # Convert won to 1 and 0
+    df["won"] = df["won"].astype(str).str.lower().map({
+    "true": 1,
+    "false": 0
+})
+    results = {}
+
+    # Average attempts
+    results["avg_tries_by_pos"] = (
+        df.groupby("pos")["tries"]
+        .mean()
+        .sort_values()
+    )
+
+    results["avg_tries_by_syllables"] = (
+        df.groupby("syllables")["tries"]
+        .mean()
+        .sort_values()
+    )
+
+    results["avg_tries_by_vowels"] = (
+        df.groupby("vowels")["tries"]
+        .mean()
+        .sort_values()
+    )
+
+    results["avg_tries_by_frequency"] = (
+        df.groupby("frequency")["tries"]
+        .mean()
+        .sort_values()
+    )
+
+    # Win rate
+    results["winrate_by_pos"] = (
+        df.groupby("pos")["won"]
+        .mean()
+        .sort_values()
+    )
+
+    results["winrate_by_syllables"] = (
+        df.groupby("syllables")["won"]
+        .mean()
+        .sort_values()
+    )
+
+    results["winrate_by_vowels"] = (
+        df.groupby("vowels")["won"]
+        .mean()
+        .sort_values()
+    )
+
+    results["winrate_by_frequency"] = (
+        df.groupby("frequency")["won"]
+        .mean()
+        .sort_values()
+    )
+
+    # Save analyses as separate CSV files
+    if save_to_file:
+
+        data_folder = Path(__file__).resolve().parent.parent / "data"
+
+        for name, result in results.items():
+
+            result.to_csv(
+                data_folder / f"{name}.csv",
+                index=True
+        )
+
+        print("Alle Analyse-Dateien wurden erfolgreich erstellt.")
+
+    return results
+
+#if __name__ == "__main__": #test
+  #  analysis = analyze_game_data()
+  #  for key, value in analysis.items():
+   #     print("\n---", key, "---")
+    #    print(value)
+
+if __name__ == "__main__":
+    analyze_game_data(save_to_file=True)

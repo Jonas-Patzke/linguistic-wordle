@@ -1,0 +1,8 @@
+,avg_tries_by_pos,avg_tries_by_syllables,avg_tries_by_vowels,avg_tries_by_frequency,winrate_by_pos,winrate_by_syllables,winrate_by_vowels,winrate_by_frequency
+ADV,4.75,,,,,,,
+VERB,5.0,,,,,,,
+NOUN,5.176470588235294,,,,,,,
+ADJ,5.375,,,,,,,
+3,,4.714285714285714,,,,,,
+1,,5.0,,,,,,
+2,,5.368421052631579,,,,,,
