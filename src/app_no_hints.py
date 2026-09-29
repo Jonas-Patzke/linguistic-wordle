@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 import game_logic
-from evaluate import write_data_tabel as wdt, sheet1
+from evaluate import write_data_tabel as wdt, sheet2
 import time
+import webbrowser
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory
 
@@ -49,7 +50,7 @@ def guess():
         data_list.extend("-" * open_tries) 
         try:
             with open("../data/credentials.json"):
-                wdt(sheet1, data_list)
+                wdt(sheet2, data_list)
         except:
                 print("played without uploading data")
         
@@ -74,7 +75,7 @@ def guess():
             data_list = [solution, tries, False, needed_time,  player]
             with open("../data/credentials.json"):
                 data_list.extend(guessed_words)
-                wdt(sheet1, data_list)
+                wdt(sheet2, data_list)
         except:
             print("played without uploading data")
     return jsonify({
@@ -83,9 +84,12 @@ def guess():
         "wrong_letters": list(game_logic.letter_status(solution, word)[1]),
         "valid": True,
         "tries_left" : tries_left,
-        "hint" : game_logic.give_hint(solution)
+        "hint" : ""
 
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    webbrowser.open("http://127.0.0.1:5001")
+    app.run(debug=True, use_reloader=False, port=5001)
+    
+    
