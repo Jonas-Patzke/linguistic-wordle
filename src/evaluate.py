@@ -53,7 +53,7 @@ def write_data_tabel(sheet, data: list): #data should have the form [word, tries
     sheet.append_row(data)
 
 def load_sheet_data(): #load the data from the sheet
-    data = sheet.get_all_values()
+    data = sheet1.get_all_values()
     header = data[0]
     rows = data[1:]
     df = pd.DataFrame(rows, columns=header)
@@ -77,20 +77,17 @@ def analyze_game_data(save_to_file=False):  # analysis function
 
     # Attach properties to the data
     df["syllables"] = df["word"].apply(
-        lambda w: props.get(w, {}).get("syllables_count")
-    )
+        lambda w: props.get(w, {}).get("syllables_count"))
 
     df["frequency"] = df["word"].apply(
-        lambda w: props.get(w, {}).get("frequenzies")
-    )
+        lambda w: props.get(w, {}).get("frequenzies"))
 
     df["pos"] = df["word"].apply(
-        lambda w: props.get(w, {}).get("pos")
-    )
+        lambda w: props.get(w, {}).get("pos"))
 
     df["vowels"] = df["word"].apply(
-    lambda w: sum(letter in "aeiou" for letter in w)
-    )
+    lambda w: sum(letter in "aeiou" for letter in w))
+
     # Convert columns to numeric
     df["tries"] = pd.to_numeric(df["tries"], errors="coerce")
     df["vowels"] = pd.to_numeric(df["vowels"], errors="coerce")
@@ -99,59 +96,50 @@ def analyze_game_data(save_to_file=False):  # analysis function
     # Convert won to 1 and 0
     df["won"] = df["won"].astype(str).str.lower().map({
     "true": 1,
-    "false": 0
-})
+    "false": 0})
     results = {}
 
     # Average attempts
     results["avg_tries_by_pos"] = (
         df.groupby("pos")["tries"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     results["avg_tries_by_syllables"] = (
         df.groupby("syllables")["tries"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     results["avg_tries_by_vowels"] = (
         df.groupby("vowels")["tries"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     results["avg_tries_by_frequency"] = (
         df.groupby("frequency")["tries"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     # Win rate
     results["winrate_by_pos"] = (
         df.groupby("pos")["won"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     results["winrate_by_syllables"] = (
         df.groupby("syllables")["won"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     results["winrate_by_vowels"] = (
         df.groupby("vowels")["won"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     results["winrate_by_frequency"] = (
         df.groupby("frequency")["won"]
         .mean()
-        .sort_values()
-    )
+        .sort_values())
 
     # Save analyses as separate CSV files
     if save_to_file:
@@ -162,18 +150,14 @@ def analyze_game_data(save_to_file=False):  # analysis function
 
             result.to_csv(
                 data_folder / f"{name}.csv",
-                index=True
-        )
+                index=True)
+            
+        combined = pd.concat(results, axis=1) #a file with all values
+        combined.to_csv(data_folder / "analysis_all.csv", index=True)
 
         print("Alle Analyse-Dateien wurden erfolgreich erstellt.")
 
     return results
 
-#if __name__ == "__main__": #test
-  #  analysis = analyze_game_data()
-  #  for key, value in analysis.items():
-   #     print("\n---", key, "---")
-    #    print(value)
-
 if __name__ == "__main__":
-    analyze_game_data(save_to_file=True)
+   analyze_game_data(save_to_file=True)
