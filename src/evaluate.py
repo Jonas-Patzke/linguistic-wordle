@@ -211,7 +211,7 @@ def avg_syllables_by_length_with_plot(file):
             for w in words.keys()
         ])
     else:
-        raise ValueError("Das Wörterbuch muss ein dict sein (wie propertie_dict.pkl).")
+        raise ValueError("The dictionary must be a dict (like propertie_dict.pkl).")
 
     df["syllables"] = pd.to_numeric(df["syllables"], errors="coerce") #make syllables to numbers
 
@@ -233,3 +233,43 @@ def avg_syllables_by_length_with_plot(file):
 
 if __name__ == "__main__":
     print(avg_syllables_by_length_with_plot("../data/propertie_dict.pkl"))
+
+def avg_vowels_with_plot(file, length=None):
+
+    words = bd.read_pickle(file) #load words
+
+    if isinstance(words, dict): #takes keys and values
+        df = pd.DataFrame([
+            {"word": w,
+             "length": len(w),
+             "vowels": sum(ch in "aeiou" for ch in w.lower())}
+            for w in words.keys()
+        ])
+    else:
+        raise ValueError("The dictionary must be a dict (like propertie_dict.pkl).")
+
+    if length is not None: #filters if we search a specific length
+        df = df[df["length"] == length]
+
+        if df.empty:
+            print(f"Keine Wörter mit Länge {length} gefunden.")
+            return None
+
+    result = df.groupby("length")["vowels"].mean().round(3) #calculate avergae
+
+    plt.figure(figsize=(10, 6)) #creates diagramm
+    plt.bar(result.index, result.values, color="skyblue")
+    plt.title("Average number of vowels per word length")
+    plt.xlabel("Word length (number of letters)")
+    plt.ylabel("Average number of vowels")
+    plt.tight_layout()
+
+    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    plt.savefig(data_folder / "avg_vowels_by_length.png")
+    plt.close()
+
+    print("Diagramm 'avg_vowels_by_length.png' wurde erstellt.")
+    return result
+
+print(avg_vowels_with_plot("../data/propertie_dict.pkl"))
+#print(avg_vowels_with_plot("../data/propertie_dict.pkl", length=6)) #if we want to look at a spezific length
