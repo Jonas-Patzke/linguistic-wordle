@@ -161,3 +161,40 @@ def analyze_game_data(save_to_file=False):  # analysis function
 
 if __name__ == "__main__":
    analyze_game_data(save_to_file=True)
+
+def top_5_first_letters(file):
+    words = bd.read_pickle(file) #load words
+
+    if isinstance(words, dict):
+        word_list = list(words.keys())
+    else:
+        word_list = words
+
+    first_letters = [w[0].lower() for w in word_list if isinstance(w, str) and len(w) > 0] #extract first letters
+
+    df = pd.DataFrame(first_letters, columns=["first_letter"]) #calculate frequency
+    counts = df["first_letter"].value_counts()
+    percentages = df["first_letter"].value_counts(normalize=True) * 100
+
+    top5 = pd.DataFrame({ #pick top 5
+        "count": counts.head(5),
+        "percent": percentages.head(5).round(2)
+    })
+    
+    plt.figure(figsize=(10, 6)) #creates diagramm
+    plt.bar(top5.index, top5["percent"], color="skyblue")
+    plt.title("Top 5 Anfangsbuchstaben – Prozentanteil")
+    plt.xlabel("Buchstabe")
+    plt.ylabel("Prozent (%)")
+    plt.tight_layout()
+
+    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    plt.savefig(data_folder / "top5_first_letters.png")
+    plt.close()
+
+    print("Diagramm 'top5_first_letters.png' wurde erstellt.")
+
+    return top5
+
+#print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl")) #prints top 5 from wordle dick
+print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl"))
