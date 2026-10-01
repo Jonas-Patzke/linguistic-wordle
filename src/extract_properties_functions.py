@@ -6,7 +6,7 @@ import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 cmu = cmudict.dict() #cmudict to python dict
 
-def return_cmu_dict():
+def return_cmu_dict(): #to get the cmu dict as python dict in other files
   return cmu
 
 def number_of_letters(lemma: list): #extract the number of letters
@@ -21,7 +21,7 @@ def pos_tagger(spacy_token):#map part-of-speech to each token
     pos_tags.update({token.text: token.pos_})
   return pos_tags
 
-def extract_frequenzy(text_file, word_set):
+def extract_frequenzy(text_file, word_set): 
   count_dict = {}
   with open(text_file, "r", encoding="utf-8") as file:
     text = file.read()
@@ -32,8 +32,8 @@ def extract_frequenzy(text_file, word_set):
 
 
 def count_syllables_cmu(word): #counts syllables
-  pronunciations = cmu[word][0] #extract only the first pronunciation
-  syllables = sum(1 for letter in pronunciations if letter[-1].isdigit()) #vocals have a number
+  pronunciations = cmu[word][0] #extract only the first pronunciation 
+  syllables = sum(1 for letter in pronunciations if letter[-1].isdigit()) #in pronounciation there are digits that show us the stress of a syllable, so there is one number for each and they are always at the last position 
   return syllables
 
 def extract_syllables(words): #application for all tokens
@@ -43,11 +43,6 @@ def extract_syllables(words): #application for all tokens
     syllables_dict.update({word: s})
   return syllables_dict
 
-def extract_constituents(tokens): #extract constituents
-  constituents_dict = {}
-  for token in tokens:
-    constituents_dict.update({token.text: token.dep_})
-  return constituents_dict
 
 
 

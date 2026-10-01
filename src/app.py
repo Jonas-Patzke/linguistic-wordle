@@ -8,9 +8,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directo
 app = Flask(__name__)
 @app.route("/")
 def game_menu():
-    word = "Haus"
-    versuche = 6
-    return render_template("game_menu.html", word=word, versuche=versuche)
+    return render_template("game_menu.html")
 
 solution = game_logic.pick_random_word()# picks a random word out of our data
 length_of_word= len(solution)
