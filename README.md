@@ -7,7 +7,7 @@ Our goal is an interactive word-guessing game based on real linguistic data.
 - Extracts words from *Moby Dick*
 - Tokenization and lemmatization with spacy
 - Removes proper nouns
-- Filters words by length (5-10 characters)
+- Filters words by length (5-7 characters)
 - Computes linguistic features like word length, part-of-speech, syllable count...
 - builds a custom database
 - provides game logic in wordle-style
@@ -27,7 +27,7 @@ You can just clone the project and install the required packages, which you need
 5. Continue to guess until you find the right word or run out of attempts.
 
 # Contributions
-Jonas Patzke, Veronika Rapp and Lina Bang are maintainers for this repository.
+Jonas Patzke and Veronika Rapp are maintainers for this repository.
 
 # License
 For our data we used the licens-free novel "Moby Dick".
