@@ -16,11 +16,11 @@ creds = Credentials.from_service_account_file(
     scopes=scopes
 )
 client = gspread.authorize(creds)
-sheet1 = client.open_by_url(
+sheet1 = client.open_by_url( #the data table for our linguistic wordle
 "https://docs.google.com/spreadsheets/d/1A2AqtIRgllnj0LVhDF0N7CrbK-haPZxRQNYx09a9gTQ/edit?gid=0#gid=0"
 ).sheet1
 
-sheet2 = client.open_by_url(
+sheet2 = client.open_by_url( #the data for the wordle without hints
 "https://docs.google.com/spreadsheets/d/1h02HEgTMySWGgAWkalbT35zez5A9_lhq0dfTx997jG4/edit?gid=0#gid=0"
 ).sheet1
 

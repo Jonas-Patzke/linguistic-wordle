@@ -45,7 +45,7 @@ def clean_lowercase(text_file): #convert file in lowercase
 #use our text cleaning functions before we use lemmatize()
 #we will use spacy to filter for stop words and punctuation, but its only possible with token objects
 #token.is_alpha = true, if our token is made out of letters
-#token.is_stop = true, if our tiken is a stop word
+#token.is_stop = true, if our token is a stop word
 
 def tokenize(text):  #tokenize our chapters and return token objects, input text is coming from clean_lowercase function
   nlp = spacy.load("en_core_web_sm")

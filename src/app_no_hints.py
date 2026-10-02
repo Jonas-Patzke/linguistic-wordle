@@ -6,6 +6,9 @@ import webbrowser
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory
 
+
+#NOTE: we used the same code as in app.py, but changed every hint to an empty string and selected a different port to open the game
+
 app = Flask(__name__)
 @app.route("/")
 def game_menu():

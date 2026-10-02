@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify #flask for the connection, render_template to connect the html, request to get data from the html file, jsonify to send data to the html file in the right format
 import game_logic
-from evaluate import write_data_tabel as wdt, sheet1
+from evaluate import write_data_tabel as wdt, sheet1 #sheet1 is the 
 import time
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory

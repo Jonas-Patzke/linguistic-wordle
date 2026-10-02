@@ -15,7 +15,7 @@ def create_pickle(file_path,content): #our content sould be the propertie dict, 
     with open(file_path, "wb") as pickle_outfile:
         pickle.dump(content, pickle_outfile)
 
-def read_pickle(file_path):
+def read_pickle(file_path): #read a pickle file
     with open(file_path, "rb") as pickle_infile:
         return pickle.load(pickle_infile)
 

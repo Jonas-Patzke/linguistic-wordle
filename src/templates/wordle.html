@@ -6,22 +6,23 @@
     <title>Linguistic Wordle</title>
 
     <style>
-
-        #message{
+        /* set the design for... */
+        
+        #message{ /* The "You Won!" message */
             position: absolute;
             top:8%;    
             left:35%;
             font-size: 5rem;
         }
 
-        #invalid_word{
+        #invalid_word{ /* The "Invalid Word!" message */
            position: absolute;
             top:8%;    
             left:35%;
             font-size: 5rem; 
         }
 
-        #hint_text{
+        #hint_text{ /* the hint text, its one big text that gets updated with every hint */
             position: absolute;
             top:20%;    
             left:60%;
@@ -29,21 +30,22 @@
         
         }
 
-        #no_tries_left{
+        #no_tries_left{ /* the "You Lost" message */
             position: absolute;
             top:8%;    
             left:35%;
             font-size: 5rem;
         }
 
-        #word_was{
+        #word_was{ /* The "The word was xxx" message */
             position: absolute;
             top:70%;    
             left:25%;
             font-size: 3.5rem;
         }
 
-        .green {
+        /* we create the colors like this, so it works fluently with our given data of the letter_status function */
+        .green { 
             background-color: green;
         }
 
@@ -59,13 +61,14 @@
             top:60%;    
             left:35%;
         }
-        .row {
+        
+        .row { /* The row for our guess display */
             display: flex;
             gap: 5px;
             margin-bottom: 5px;
         }
 
-        .tile {
+        .tile { /* each tile of the rows */
             width: 40px;
             height: 40px;
             border: 2px solid black;
@@ -75,7 +78,7 @@
             font-size: 2rem;
             font-weight: bold;
         }   
-        #board{
+        #board{ /* for our keyboard in the game to paint letters grey that arent in the solution, but in the guesses */
             position: absolute;
             top:20%;    
             left:35%;
@@ -84,6 +87,9 @@
 </head>
 
 <body>
+    <!-- here are the elements that appear on the html site -->
+
+    <!-- empty elements, that get filled during the game -->
     <div id="message"></div>
 
     <div id="invalid_word"></div>
@@ -94,9 +100,10 @@
 
     <div id="no_tries_left"></div>
 
+    <!-- the keyboard on our html site -->
     <div class="keyboard">
 
-
+        <!-- for each row -->
         <div class="row">
 
             <button class="key">Q</button>
@@ -162,42 +169,44 @@
             
         </div>
     </div>
+
+    <!-- the boar where we guess, since different word lenghts, it has to adapt -->
     <div id="board"></div>
     <script>
 
         function addHint(text) {
-            document.getElementById("hint_text").innerHTML += text + "<br>";
+            document.getElementById("hint_text").innerHTML += text + "<br>"; // this method is used to display the hints, the hints are the parameter text
         }
-        const tries = 6;
-        const word_to_guess = "{{solution}}";
+        const tries = 6; 
+        const word_to_guess = "{{solution}}"; //here we set the word the player has to get by the form "{{...}}" we get a string, the solution we defined in app.py
         console.log(word_to_guess) //we can always look up our word in the console by pressing f12 in our browser
-        const word_length = {{length_of_word}};  
+        const word_length = {{length_of_word}}; //no "" here, since its no string, here we get the word lenght we defined in app.py
 
-        const board = document.getElementById("board");
+        const board = document.getElementById("board"); //this variabel is linked to the div with the id "board"
 
-        for (let r = 0; r < tries; r++) {
+        for (let r = 0; r < tries; r++) { //now the board to guess gets created
 
             const row = document.createElement("div");
             row.classList.add("row");
 
-            for (let c = 0; c < word_length; c++) {
+            for (let c = 0; c < word_length; c++) { //one tile for each letter
 
                 const tile = document.createElement("div");
 
                 tile.classList.add("tile");
-                tile.id = `r${r}c${c}`;
+                tile.id = `r${r}c${c}`; //gives each tile an id by row and column
 
-                row.appendChild(tile);
+                row.appendChild(tile); //appends one tile
             }
 
-            board.appendChild(row);
+            board.appendChild(row); //appends a row
         }
         
         let current_column = 0;
         let current_line = 0;
         let current_word = "";
         let isSubmitting = false;
-        document.addEventListener("keydown", handleKeyDown);
+        document.addEventListener("keydown", handleKeyDown); //add the key listener so it detects pressed keya
         function handleKeyDown(event){
         
             if (/^[a-zA-Z]$/.test(event.key)) { //press a letter to write your guess
@@ -205,13 +214,13 @@
                 if (current_column < word_length) { //you cant type more letters than the lenght of the word
             
                     const tile = document.getElementById(
-                    `r${current_line}c${current_column}`
+                    `r${current_line}c${current_column}` //get the location of the tile here the tipped letter goes into
                     );
                     
-                    tile.textContent = event.key.toUpperCase();
+                    tile.textContent = event.key.toUpperCase(); //add the letter in upper case
                     
-                    current_word += event.key.toLowerCase();
-                    current_column++;
+                    current_word += event.key.toLowerCase(); //add the letter to current_word
+                    current_column++; 
                 }
             }
             
@@ -220,25 +229,25 @@
 
                 if (current_column > 0) {
 
-                    current_column--;
-                    current_word = current_word.slice(0, -1);
+                    current_column--; 
+                    current_word = current_word.slice(0, -1); //delete the last letter in current_word
                     const tile = document.getElementById(
-                        `r${current_line}c${current_column}`
+                        `r${current_line}c${current_column}` //get the loacation of the current tile
                     );
-                    document.getElementById("invalid_word").innerText = "";
-                    tile.textContent = "";
+                    document.getElementById("invalid_word").innerText = ""; //when we have an invalid word and we want the notification to disapear we have to delete the last letter
+                    tile.textContent = "";  //delet the letter from the tile
                 }
             }
 
             if (event.key === "Enter") { //press enter to guess
-                if (isSubmitting) {
+                if (isSubmitting) { // we do this so cou cant spam enter to sent multiple dat sets to our spread sheet
                     console.log("blockiert");
                     return;
                 }
                 if (current_column === word_length) { //only possible if the count of the letters of your guess = count of letters of the word to guess
                     isSubmitting = true;
                     const rowToColor = current_line;
-                    fetch("/guess", {
+                    fetch("/guess", { //This gets send to app.py
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -247,11 +256,11 @@
                             "current_word": current_word
                         })
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.valid === false){
-                            document.getElementById("invalid_word").innerText = "Invalid Word!";
+                    .then(response => response.json()) //waiting for a response from app.py
+                    .then(data => { //accesses the data that got sent
+                        console.log(data); //appears also in the console log in the browser, was initially for testing
+                        if (data.valid === false){ //is the word valid to guess?
+                            document.getElementById("invalid_word").innerText = "Invalid Word!"; //if not, change the tect of "invalid_word" to "Invalid Word!"
                         }
                         else{
                             data.colors.forEach((color, index) => { //color the letters of the guessed word
@@ -265,7 +274,7 @@
                                 document.removeEventListener("keydown", handleKeyDown); //disable the function to type more letters
                                 
                             }
-                            addHint(data.hint)
+                            addHint(data.hint) //display the hint
                             if ( data.tries_left === false){
                                 document.getElementById("no_tries_left").innerText = "You Lost!"
                                 document.getElementById("word_was").innerText = `The word was ${word_to_guess}!`
@@ -282,7 +291,7 @@
                         }
                         
                     })
-                    .catch(err => console.error(err))
+                    .catch(err => console.error(err)) // unlock the enter button
                     .finally(() => {
                         isSubmitting = false;
                    
