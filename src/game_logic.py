@@ -33,7 +33,7 @@ def letter_status(solution,guess): #input are the worde we have to gues and our 
 
 try_number = 0
 
-def give_hint(word): #input is a word and a list of its properties, more exactly give_hint(word, dictionary.get(word))
+def give_hint(word): #input is a word, output is the hint we want to give depending on the try
     global try_number
     try_number += 1
     properties = rp("../data/propertie_dict.pkl")
