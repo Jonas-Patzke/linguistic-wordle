@@ -273,3 +273,41 @@ def avg_vowels_with_plot(file, length=None):
 
 print(avg_vowels_with_plot("../data/propertie_dict.pkl"))
 #print(avg_vowels_with_plot("../data/propertie_dict.pkl", length=6)) #if we want to look at a spezific length
+
+def top_10_words_with_plot(file):
+
+    words = bd.read_pickle(file) #load words
+
+    if not isinstance(words, dict):
+        raise ValueError("The dictionary must be a dict (like propertie_dict.pkl).")
+
+    df = pd.DataFrame([ #builds dataframe
+        {
+            "word": w,
+            "frequenzy": words[w].get("frequenzies"),
+            #"daily": words[w].get("daily_frequenzy")  #if we want the daily usage
+        }
+        for w in words.keys()
+    ])
+
+    df["frequenzy"] = pd.to_numeric(df["frequenzy"], errors="coerce") #frequency to numbers
+    #df["daily"] = pd.to_numeric(df["daily"], errors="coerce")
+
+    top10 = df.sort_values("frequenzy", ascending=False).head(10) #top10 most frequent words
+
+    plt.figure(figsize=(10, 6)) #creates diagramm
+    plt.bar(top10["word"], top10["frequenzy"], color="skyblue")
+    plt.title("Top 10 most frequent words in the text")
+    plt.xlabel("Word")
+    plt.ylabel("Frequent")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    plt.savefig(data_folder / "top10_words.png")
+    plt.close()
+
+    print("Diagramm 'top10_words.png' wurde erstellt.")
+    return top10
+
+print(top_10_words_with_plot("../data/propertie_dict.pkl"))
