@@ -35,6 +35,13 @@ If you want to play again, you have to press run code 2 times:
 <img width="1734" height="934" alt="image" src="https://github.com/user-attachments/assets/8ecdefbf-f344-43d3-9b7f-fcf323ae7525" />
 
 
+To recreate or view the used data the files evaluate.py and process_and_extract.py have to be used in orderto get the results.
+All you have to do is to run the code. To find the data we collected from our wordle game, follow this link:
+https://docs.google.com/spreadsheets/d/1A2AqtIRgllnj0LVhDF0N7CrbK-haPZxRQNYx09a9gTQ/edit?gid=0#gid=0
+For the data of the worlde game without linguistic hints, follow this link:
+https://docs.google.com/spreadsheets/d/1h02HEgTMySWGgAWkalbT35zez5A9_lhq0dfTx997jG4/edit?gid=0#gid=0
+In the cells B52 to D52 in both spread sheets is the result, in the order average tries, winrate and average time to solve in seconds.
+
 
 # Contributions
 Jonas Patzke and Veronika Rapp are maintainers for this repository.
