@@ -81,7 +81,7 @@ def analyze_game_data(save_to_file=False):  # analysis function
         lambda w: props.get(w, {}).get("syllables_count"))
 
     df["frequency"] = df["word"].apply(
-        lambda w: props.get(w, {}).get("frequenzies"))
+        lambda w: props.get(w, {}).get("frequencies"))
 
     df["pos"] = df["word"].apply(
         lambda w: props.get(w, {}).get("pos"))
@@ -217,20 +217,20 @@ def avg_syllables_by_length_with_plot(file):
 
     df["syllables"] = pd.to_numeric(df["syllables"], errors="coerce") #make syllables to numbers
 
-    result = df.groupby("length")["syllables"].mean().round(3) #calculate average
+    result = df.groupby("length")["syllables"].mean().round(3) #calculate average, sort by heigth and round
 
     plt.figure(figsize=(10, 6)) #creates diagramm
     plt.bar(result.index, result.values, color="skyblue")
-    plt.title("Average number of syllables per word")
-    plt.xlabel("Word length (number of letters)")
-    plt.ylabel("Average syllables")
+    plt.title("Average number of syllables per word") #title
+    plt.xlabel("Word length (number of letters)") #xlabel
+    plt.ylabel("Average syllables") #ylabel
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #save diagramm
-    plt.savefig(data_folder / "avg_syllables_by_length.png")
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #set the folder to save it
+    plt.savefig(data_folder / "avg_syllables_by_length.png") #save it
     plt.close()
 
-    print("Diagramm 'avg_syllables_by_length.png' wurde erstellt.")
+    print("Diagramm avg_syllables_by_length.png wurde erstellt.") 
     return result
 
 if __name__ == "__main__":
@@ -287,7 +287,7 @@ def top_10_words_with_plot(file):
     df = pd.DataFrame([ #builds dataframe
         {
             "word": w,
-            "frequency": words[w].get("frequenzies"),
+            "frequency": words[w].get("frequencies"),
             #"daily": words[w].get("daily_frequenzy")  #if we want the daily usage
         }
         for w in words.keys()
@@ -321,7 +321,7 @@ def calculate_mean_elimination_rate_per_hint():
     avg_elimination_rates = {"syllables_count": 0, "frequencies": 0, "pos":0, "starting_letter":0, "vowel_count": 0}
     properties = rp("../data/propertie_dict.pkl")
     possible_solutions = 1423
-    for i in range(3): #3 times, for sllaylbles, frequenzies and pos
+    for i in range(3): #3 times, for sllaylblecies and pos
         avg_elimination_rate = 0
         one_rate_per_value = set() #
         propertie_dict = {}
