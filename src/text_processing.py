@@ -103,7 +103,7 @@ def only_words_with_extractable_syllables(words):
 def create_token():
     extracted_chapters = run_extraction(20) #extract chapters
     token = tokenize(clean_lowercase(extracted_chapters)) #1. put everything in lower case, 2. tokenize
-    filtered_token = filter_tokens(token) #filter to remove stopwords and every token, that doesnt 
+    filtered_token = filter_tokens(token) #filter to remove stopwords and every token, that doesnt only content letters
     return filtered_token
 
 def create_lemma(token):

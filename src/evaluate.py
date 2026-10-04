@@ -5,6 +5,7 @@ from pathlib import Path
 import build_database as bd
 import os
 import matplotlib.pyplot as plt
+from build_database import read_pickle as rp
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #change the working directory to find our txt
 
 scopes = [
@@ -286,19 +287,19 @@ def top_10_words_with_plot(file):
     df = pd.DataFrame([ #builds dataframe
         {
             "word": w,
-            "frequenzy": words[w].get("frequenzies"),
+            "frequency": words[w].get("frequenzies"),
             #"daily": words[w].get("daily_frequenzy")  #if we want the daily usage
         }
         for w in words.keys()
     ])
 
-    df["frequenzy"] = pd.to_numeric(df["frequenzy"], errors="coerce") #frequency to numbers
+    df["frequency"] = pd.to_numeric(df["frequency"], errors="coerce") #frequency to numbers
     #df["daily"] = pd.to_numeric(df["daily"], errors="coerce")
 
-    top10 = df.sort_values("frequenzy", ascending=False).head(10) #top10 most frequent words
+    top10 = df.sort_values("frequency", ascending=False).head(10) #top10 most frequent words
 
     plt.figure(figsize=(10, 6)) #creates diagramm
-    plt.bar(top10["word"], top10["frequenzy"], color="skyblue")
+    plt.bar(top10["word"], top10["frequency"], color="skyblue")
     plt.title("Top 10 most frequent words in the text")
     plt.xlabel("Word")
     plt.ylabel("Frequent")
@@ -314,3 +315,88 @@ def top_10_words_with_plot(file):
 
 if __name__ == "__main__":
     print(top_10_words_with_plot("../data/propertie_dict.pkl"))
+
+def calculate_mean_elimination_rate_per_hint():
+    hints = ["syllables_count","frequencies", "pos", "starting_letter", "vowel_count"]
+    avg_elimination_rates = {"syllables_count": 0, "frequencies": 0, "pos":0, "starting_letter":0, "vowel_count": 0}
+    properties = rp("../data/propertie_dict.pkl")
+    possible_solutions = 1423
+    for i in range(3): #3 times, for sllaylbles, frequenzies and pos
+        avg_elimination_rate = 0
+        one_rate_per_value = set() #
+        propertie_dict = {}
+        weighted_rate = 0
+        for key in properties: #fill the set
+            value = properties.get(key).get(hints[i])
+            one_rate_per_value.add(value)
+
+        for element in one_rate_per_value: #for each element in the set
+            for key in properties: #for every possible solution
+                if properties.get(key).get(hints[i]) == element: #if the dict value equals the possible value
+                    try:
+                        propertie_dict.update({element : propertie_dict.get(element) + 1}) 
+                    except:
+                        propertie_dict.update({element : 1})
+        for element, count in propertie_dict.items():
+            weighted_rate += (possible_solutions - count) * (count/ possible_solutions)
+        avg_elimination_rate = weighted_rate / possible_solutions
+        avg_elimination_rates.update({hints[i]: avg_elimination_rate})
+    for i in range(2):
+        avg_elimination_rate = 0
+        one_rate_per_value = set() #
+        propertie_dict = {}
+        weighted_rate = 0
+        vowels = "aeiou"
+        for key in properties: #fill the set
+            if i == 0:
+                value = key[0]
+            else:
+                value = sum(1 for v in key if v in vowels)
+            one_rate_per_value.add(value)
+        for element in one_rate_per_value: #for each element in the set
+            for key in properties: #for every possible solution
+                if i == 0:
+                    if element == key[0] :
+                        try:
+                            propertie_dict.update({element : propertie_dict.get(element) + 1}) 
+                        except:
+                            propertie_dict.update({element : 1})
+                else:
+                    if element == sum(1 for v in key if v in vowels):
+                        try:
+                            propertie_dict.update({element : propertie_dict.get(element) + 1}) 
+                        except:
+                            propertie_dict.update({element : 1})
+        for element, count in propertie_dict.items():
+            weighted_rate += (possible_solutions - count) * (count/ possible_solutions)
+            avg_elimination_rate = weighted_rate / possible_solutions
+            avg_elimination_rates.update({hints[i + 3]: avg_elimination_rate})
+    return avg_elimination_rates
+
+if __name__=="__main__":
+    print(calculate_mean_elimination_rate_per_hint())
+
+def create_chart_for_average_elimination(avg_elimination: dict):
+
+    df = pd.DataFrame([ #builds dataframe
+            {
+                "Hint": hint,
+                "avg elimination rate": avg_elimination.get(hint),
+                
+            }
+            for hint in avg_elimination.keys()
+        ])
+    df["avg elimination rate"] *= 100
+    entries_5 = df.sort_values("avg elimination rate", ascending=False)
+    plt.figure(figsize=(10, 6)) #creates diagramm
+    plt.bar(entries_5["Hint"], entries_5["avg elimination rate"], color="skyblue")
+    plt.title("Average elimination rate by hint in %")
+    plt.xlabel("Hint")
+    plt.ylabel("avg elimination rate")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    plt.savefig("../data/tables_and_charts/average_elimination_rate.png")
+
+if __name__=="__main__":
+    create_chart_for_average_elimination(calculate_mean_elimination_rate_per_hint())
