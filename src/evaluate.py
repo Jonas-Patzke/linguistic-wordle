@@ -144,7 +144,7 @@ def analyze_game_data(save_to_file=False):  # analysis function
     # Save analyses as separate CSV files
     if save_to_file:
 
-        data_folder = Path(__file__).resolve().parent.parent / "data"
+        data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts"
 
         for name, result in results.items():
 
@@ -159,8 +159,8 @@ def analyze_game_data(save_to_file=False):  # analysis function
 
     return results
 
-#if __name__ == "__main__":
-  # analyze_game_data(save_to_file=True)
+if __name__ == "__main__":
+   analyze_game_data(save_to_file=True)
 
 def top_5_first_letters(file):
     words = bd.read_pickle(file) #load words
@@ -188,7 +188,7 @@ def top_5_first_letters(file):
     plt.ylabel("Percent (%)")
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #saves diagramm
     plt.savefig(data_folder / "top5_first_letters.png")
     plt.close()
 
@@ -196,8 +196,9 @@ def top_5_first_letters(file):
 
     return top5
 
-#print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl")) #prints top 5 from wordle dick
-#print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl"))
+if __name__ == "__main__":
+    print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl")) #prints top 5 from wordle dick
+    print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl"))
 
 def avg_syllables_by_length_with_plot(file):
 
@@ -224,15 +225,15 @@ def avg_syllables_by_length_with_plot(file):
     plt.ylabel("Average syllables")
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #save diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #save diagramm
     plt.savefig(data_folder / "avg_syllables_by_length.png")
     plt.close()
 
     print("Diagramm 'avg_syllables_by_length.png' wurde erstellt.")
     return result
 
-#if __name__ == "__main__":
-    #print(avg_syllables_by_length_with_plot("../data/propertie_dict.pkl"))
+if __name__ == "__main__":
+    print(avg_syllables_by_length_with_plot("../data/propertie_dict.pkl"))
 
 def avg_vowels_with_plot(file, length=None):
 
@@ -264,15 +265,16 @@ def avg_vowels_with_plot(file, length=None):
     plt.ylabel("Average number of vowels")
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #saves diagramm
     plt.savefig(data_folder / "avg_vowels_by_length.png")
     plt.close()
 
     print("Diagramm 'avg_vowels_by_length.png' wurde erstellt.")
     return result
 
-#print(avg_vowels_with_plot("../data/propertie_dict.pkl"))
-#print(avg_vowels_with_plot("../data/propertie_dict.pkl", length=6)) #if we want to look at a spezific length
+if __name__ == "__main__":
+    print(avg_vowels_with_plot("../data/propertie_dict.pkl"))
+    print(avg_vowels_with_plot("../data/propertie_dict.pkl", length=6)) #if we want to look at a spezific length
 
 def top_10_words_with_plot(file):
 
@@ -303,11 +305,12 @@ def top_10_words_with_plot(file):
     plt.xticks(rotation=45)
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #saves diagramm
     plt.savefig(data_folder / "top10_words.png")
     plt.close()
 
     print("Diagramm 'top10_words.png' wurde erstellt.")
     return top10
 
-#print(top_10_words_with_plot("../data/propertie_dict.pkl"))
+if __name__ == "__main__":
+    print(top_10_words_with_plot("../data/propertie_dict.pkl"))
