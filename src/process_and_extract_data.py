@@ -23,7 +23,7 @@ final_lemma = desired_length # the words we want to get the properties of, these
 
 #create a dict of words ans their properties
 word_length = epf.number_of_letters(final_lemma) #dict of word and its length
-word_frequenzies = epf.extract_frequenzy("../data/first_three_chapters.txt", final_lemma) #dict of word and its frequenzy
+word_frequenzies = epf.extract_frequenzy("../data/extracted_chapters.txt", final_lemma) #dict of word and its frequenzy
 word_syllables_count = epf.extract_syllables(final_lemma) #dict of words and theircounts of syllables
 properties_dict_list = [word_length, pos_tags, word_frequenzies, word_syllables_count] #create a list to automaticly extract the properties from the dicts
 propertie_dict = bd.create_propertie_dict(final_lemma, properties_dict_list) #create the final dict of words and their properties

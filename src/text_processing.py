@@ -21,8 +21,8 @@ def save_text(path, content):      #save text in a file
 def run_extraction(count_of_chapters: int):   #the whole extraction Prozess
   raw = load_text("../data/MOBY-DICK; or, THE WHALE.txt")
   chapters = extract_chapters(raw, count_of_chapters )
-  save_text("../data/first_three_chapters.txt", chapters)
-  return "../data/first_three_chapters.txt"
+  save_text("../data/extracted_chapters.txt", chapters) #we store it in a file to hav a look on it
+  return "../data/extracted_chapters.txt"
 
 #if __name__ == "__main__":  #starts automaticly running
 # run_extraction()
