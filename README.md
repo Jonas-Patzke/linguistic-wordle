@@ -25,6 +25,8 @@ You can just clone the project and install the required packages, which you need
    - **yellow**: correct letter, but in the wrong position.
    - **green**: correct letter in the correct position.
 5. Continue to guess until you find the right word or run out of attempts.
+<img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/fb1f180c-af0b-4459-9382-338e2ba475e2" />
+
 
 # Contributions
 Jonas Patzke and Veronika Rapp are maintainers for this repository.
