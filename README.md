@@ -25,9 +25,13 @@ You can just clone the project and install the required packages, which you need
    - **yellow**: correct letter, but in the wrong position.
    - **green**: correct letter in the correct position.
 5. Continue to guess until you find the right word or run out of attempts.
+
 If you want to play again, you have to press run code 2 times:
+  
    -  1st click ends hosting the last game
+   
    - 2nd click starts the new game
+
 <img width="1734" height="934" alt="image" src="https://github.com/user-attachments/assets/8ecdefbf-f344-43d3-9b7f-fcf323ae7525" />
 
 
