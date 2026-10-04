@@ -21,7 +21,7 @@ def pos_tagger(spacy_token):#map part-of-speech to each token
     pos_tags.update({token.text: token.pos_}) #token.text gets the origninal string, token.pos_ the pos tag to the word
   return pos_tags
 
-def extract_frequenzy(text_file, word_set):  #extract how often each word appears in the first 20 chapters
+def extract_frequency(text_file, word_set):  #extract how often each word appears in the first 20 chapters
   count_dict = {}
   with open(text_file, "r", encoding="utf-8") as file:
     text = file.read()

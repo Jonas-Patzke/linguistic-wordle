@@ -3,7 +3,11 @@ import build_database as bd
 import extract_properties_functions as epf
 
 
-token = tp.create_token() #extract abd create token from a text, lowers and filters them
+token = tp.create_token() #extract chapters create token from a text, lowers and filters them
+with open ("../data/token.txt", "w") as outfile: #save token to get the real frequency of a word
+    for word in token:
+        outfile.write(word.text + "\n") #write the whole extracted chapters in lemma
+
 pos_tags = epf.pos_tagger(token) #dict of word and its pos-tag
 lemma1 = tp.create_lemma(token) #create lemma out of the tokens, solving edge cases and remove duplicates
 lemma2 = tp.remove_proper_names(pos_tags) #depending on those lemmas, we will fill our database, since we do not want proper names
@@ -23,9 +27,9 @@ final_lemma = desired_length # the words we want to get the properties of, these
 
 #create a dict of words ans their properties
 word_length = epf.number_of_letters(final_lemma) #dict of word and its length
-word_frequenzies = epf.extract_frequenzy("../data/extracted_chapters.txt", final_lemma) #dict of word and its frequenzy
+word_frequencies = epf.extract_frequency("../data/token.txt", final_lemma) #dict of word and its frequenzy
 word_syllables_count = epf.extract_syllables(final_lemma) #dict of words and theircounts of syllables
-properties_dict_list = [word_length, pos_tags, word_frequenzies, word_syllables_count] #create a list to automaticly extract the properties from the dicts
+properties_dict_list = [word_length, pos_tags, word_frequencies, word_syllables_count] #create a list to automaticly extract the properties from the dicts
 propertie_dict = bd.create_propertie_dict(final_lemma, properties_dict_list) #create the final dict of words and their properties
 #print(propertie_dict) #just for testsing and visualisation
 #print(len(propertie_dict)) #just for testing and visualisation
