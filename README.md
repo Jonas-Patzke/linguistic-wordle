@@ -17,7 +17,7 @@ Our goal is an interactive word-guessing game based on real linguistic data.
 You can just clone the project and install the required packages, which you need to start the game. Then you can just run the main.py data and the game opens automaticly.
 
 # Usage
-1. Open the link http://127.0.0.1:5000 to open the game.
+1.Open main.py and wait a few seconds, the game shoul open automaticly in your browser (if not open http://127.0.0.1:5000)
 2. Click "Start Game" to begin to play.
 3. Enter your guesses in the input field.
 4. The different colors have different meanings for the letters.
@@ -25,6 +25,9 @@ You can just clone the project and install the required packages, which you need
    - **yellow**: correct letter, but in the wrong position.
    - **green**: correct letter in the correct position.
 5. Continue to guess until you find the right word or run out of attempts.
+If you want to play again, you have to press run code 2 times:
+   -  1st click ends hosting the last game
+   - 2nd click starts the new game
 <img width="1734" height="934" alt="image" src="https://github.com/user-attachments/assets/8ecdefbf-f344-43d3-9b7f-fcf323ae7525" />
 
 
