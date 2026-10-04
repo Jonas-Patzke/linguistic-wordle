@@ -199,7 +199,7 @@ def top_5_first_letters(file):
 
 if __name__ == "__main__":
     print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl")) #prints top 5 from wordle dick
-    print(top_5_first_letters("../data/CMUdict_5_to_7_without_propn.pkl"))
+    
 
 def avg_syllables_by_length_with_plot(file):
 
@@ -229,7 +229,6 @@ def avg_syllables_by_length_with_plot(file):
     data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #set the folder to save it
     plt.savefig(data_folder / "avg_syllables_by_length.png") #save it
     plt.close()
-
     print("Diagramm avg_syllables_by_length.png wurde erstellt.") 
     return result
 
@@ -275,7 +274,7 @@ def avg_vowels_with_plot(file, length=None):
 
 if __name__ == "__main__":
     print(avg_vowels_with_plot("../data/propertie_dict.pkl"))
-    print(avg_vowels_with_plot("../data/propertie_dict.pkl", length=6)) #if we want to look at a spezific length
+    #print(avg_vowels_with_plot("../data/propertie_dict.pkl", length=6)) #if we want to look at a spezific length
 
 def top_10_words_with_plot(file):
 
