@@ -188,7 +188,7 @@ def top_5_first_letters(file):
     plt.ylabel("Percent (%)")
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #saves diagramm
     plt.savefig(data_folder / "top5_first_letters.png")
     plt.close()
 
@@ -225,7 +225,7 @@ def avg_syllables_by_length_with_plot(file):
     plt.ylabel("Average syllables")
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #save diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #save diagramm
     plt.savefig(data_folder / "avg_syllables_by_length.png")
     plt.close()
 
@@ -265,7 +265,7 @@ def avg_vowels_with_plot(file, length=None):
     plt.ylabel("Average number of vowels")
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #saves diagramm
     plt.savefig(data_folder / "avg_vowels_by_length.png")
     plt.close()
 
@@ -305,7 +305,7 @@ def top_10_words_with_plot(file):
     plt.xticks(rotation=45)
     plt.tight_layout()
 
-    data_folder = Path(__file__).resolve().parent.parent / "data" #saves diagramm
+    data_folder = Path(__file__).resolve().parent.parent / "data" / "tables_and_charts" #saves diagramm
     plt.savefig(data_folder / "top10_words.png")
     plt.close()
 
