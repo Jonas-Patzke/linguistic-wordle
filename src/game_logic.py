@@ -49,7 +49,7 @@ def give_hint(word): #input is a word, output is the hint we want to give depend
     elif try_number == 4:
         return f"The word contains {vowels_count} vowel(s)."
     elif try_number == 5:
-        return f"The word appears {info["frequenzies"]} times in the text."
+        return f"The word appears {info["frequencies"]} times in the text."
     elif try_number == 6:
         return f""
     else:

@@ -76,6 +76,7 @@ def guess(): #is executed when someone takes a guess
     if tries == 6: #test, if it was the last try
         tries_left = False #to show the "you lost!" on the html site
         needed_time = round(time.time() - start_time, 2) 
+        print("test")
         try: #same as before, we use try since we work with data that is in gitignore
             data_list = [solution, tries, False, needed_time,  player]
             with open("../data/credentials.json"):
@@ -83,6 +84,7 @@ def guess(): #is executed when someone takes a guess
                 wdt(sheet1, data_list)
         except:
             print("played without uploading data")
+    tries +=1
     return jsonify({
         "won": False, #return false, since we use an if state mit in javascript
         "colors": game_logic.letter_status(solution, guess)[0], #color the guessed letters
@@ -91,6 +93,7 @@ def guess(): #is executed when someone takes a guess
         "tries_left" : tries_left, #
         "hint" : game_logic.give_hint(solution) #give a hint depending on the trie, input is solution since we want to give info about it
     })
+    
 
 
 
