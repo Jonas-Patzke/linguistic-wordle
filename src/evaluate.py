@@ -12,18 +12,26 @@ scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-creds = Credentials.from_service_account_file(
-    "../data/credentials.json",
-    scopes=scopes
-)
-client = gspread.authorize(creds)
-sheet1 = client.open_by_url( #the data table for our linguistic wordle
-"https://docs.google.com/spreadsheets/d/1A2AqtIRgllnj0LVhDF0N7CrbK-haPZxRQNYx09a9gTQ/edit?gid=0#gid=0"
-).sheet1
+try:
+    with open("../data/credentials.json", "r"):
+        creds = Credentials.from_service_account_file(
+        "../data/credentials.json",
+        scopes=scopes
+        )
+        client = gspread.authorize(creds)
+        sheet1 = client.open_by_url( #the data table for our linguistic wordle
+        "https://docs.google.com/spreadsheets/d/1A2AqtIRgllnj0LVhDF0N7CrbK-haPZxRQNYx09a9gTQ/edit?gid=0#gid=0"
+        ).sheet1
 
-sheet2 = client.open_by_url( #the data for the wordle without hints
-"https://docs.google.com/spreadsheets/d/1h02HEgTMySWGgAWkalbT35zez5A9_lhq0dfTx997jG4/edit?gid=0#gid=0"
-).sheet1
+        sheet2 = client.open_by_url( #the data for the wordle without hints
+        "https://docs.google.com/spreadsheets/d/1h02HEgTMySWGgAWkalbT35zez5A9_lhq0dfTx997jG4/edit?gid=0#gid=0"
+        ).sheet1
+        
+except:
+        creds =""
+        sheet1 =""
+        sheet2 =""
+
 
 
 def word_distribution(file): #input should be one of our pickle files, either the propertie_dict or the words from the CMUdict and ther pos-tags
@@ -320,7 +328,7 @@ def calculate_mean_elimination_rate_per_hint(): #how many words can we preclude 
     avg_elimination_rates = {"syllables_count": 0, "frequencies": 0, "pos":0, "starting_letter":0, "vowel_count": 0} #create the dict we want to edit
     properties = rp("../data/propertie_dict.pkl") #load the pickle we get the properties from
     possible_solutions = 1423
-    for i in range(3): #3 times, for sllaylblecies and pos
+    for i in range(3): #3 times, for syllables, frequenzie and pos
         avg_elimination_rate = 0
         one_rate_per_value = set() #
         propertie_dict = {}
