@@ -21,7 +21,7 @@ def game():  #connects the actual wordle game site with our python backend over 
     )
 
 start_time = time.time() #starting to track the time in seconds for the played game
-tries = 1 #set tries to 1 and count it up so the hints can adapt
+tries = 0 #set tries to 1 and count it up so the hints can adapt
 guessed_words = []
 @app.route("/guess", methods=["POST"])
 def guess(): #is executed when someone takes a guess
@@ -33,7 +33,7 @@ def guess(): #is executed when someone takes a guess
     tries_left = True
     request_guess = request.get_json() #store the request to get data fromt the html
     guess = request_guess["current_word"] #get the current guess from the html file by uisng the request variable
-
+    tries +=1
     #detect the player name
     try: #since the player.txt is in gitignore, we use try. Its ignored so we dont push eachothers names on github
         with open("../data/player.txt") as player_file: #we have this player.txt to write the name of the person, who plays at the moment, in it
@@ -84,7 +84,7 @@ def guess(): #is executed when someone takes a guess
                 wdt(sheet1, data_list)
         except:
             print("played without uploading data")
-    tries +=1
+    
     return jsonify({
         "won": False, #return false, since we use an if state mit in javascript
         "colors": game_logic.letter_status(solution, guess)[0], #color the guessed letters
